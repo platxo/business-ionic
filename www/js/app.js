@@ -6,15 +6,15 @@
 var business = angular.module('business', [
   'ionic',
   'ngCordova',
-  'dataControllers',
-  'dataServices',
-  'dataRoutes',
+  'knowledgeControllers',
+  'knowledgeServices',
+  'knowledgeRoutes',
   'informationControllers',
   'informationServices',
   'informationRoutes',
-  'knowledgeControllers',
-  'knowledgeServices',
-  'knowledgeRoutes'
+  'dataControllers',
+  'dataServices',
+  'dataRoutes'
 ])
 
 business.run(function($ionicPlatform) {
