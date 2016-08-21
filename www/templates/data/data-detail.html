@@ -3,7 +3,8 @@
     <div class="list card">
       <div class="item item-divider">{{data.name}}</div>
       <div class="item item-body">
-
+				<p>created: {{data.created | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+				<p>updated: {{data.updated | date:"MM/dd/yyyy 'at' h:mma"}}</p>
       </div>
     </div>
 	</ion-content>
