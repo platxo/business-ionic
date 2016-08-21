@@ -2,11 +2,6 @@ var dataRoutes = angular.module('dataRoutes', []);
 
 dataRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('tab', {
-      url: '/tab',
-      abstract: true,
-      templateUrl: 'templates/tabs.html'
-    })
   	.state('tab.data-list', {
   	  url: '/data-list',
       views: {

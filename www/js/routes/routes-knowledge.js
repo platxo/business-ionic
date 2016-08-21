@@ -2,6 +2,11 @@ var knowledgeRoutes = angular.module('knowledgeRoutes', []);
 
 knowledgeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $stateProvider
+    .state('tab', {
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    })
     .state('tab.knowledge-list', {
   	  url: '/knowledge-list',
       views: {
