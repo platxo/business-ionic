@@ -1,16 +1,16 @@
 <ion-view view-title="Information Update">
   <ion-content padding="true">
     <form ng-submit="update()" class="list">
-      <label class="item item-input item-select" ng-click="dataOpenModal()">
-        <span class="input-label">Data</span>
-          <input ng-model="dataName" type="text" value="{{information.data}}">
-      </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="information.name" type="text" placeholder="" value="">
       </label>
-      <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
+      <label class="item item-input item-select" ng-click="dataOpenModal()">
+        <span class="input-label">Data</span>
+          <input ng-model="dataName" type="text" value="{{information.data}}">
+      </label>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Update</button>
+      <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>
   </ion-content>
 </ion-view>

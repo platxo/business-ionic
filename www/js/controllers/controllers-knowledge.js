@@ -73,7 +73,6 @@ knowledgeControllers.controller('knowledgeController', [
     $scope.selectInformation = function(information) {
       $scope.knowledge.information = information.name;
       $scope.knowledge.informations.push(information.url);
-      $scope.informationModal.hide();
     };
 
 	  $scope.$on('$stateChangeSuccess', function() {

@@ -9,11 +9,11 @@
       <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
      </button>
     </label>
-    <ion-radio
+    <ion-checkbox
       ng-repeat="information in informations | orderBy:'name' | filter:search.value"
       ng-value="{{'information.url'}}"
       ng-click="selectInformation(information)"
       >{{information.name}}
-    </ion-radio>
+    </ion-checkbox>
   </ion-content>
 </ion-modal-view>

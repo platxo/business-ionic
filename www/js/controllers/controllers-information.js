@@ -71,10 +71,9 @@ informationControllers.controller('informationController', [
 
     $scope.information.datas = [];
     $scope.selectData = function(data) {
-      
+
       $scope.information.data = data.name;
       $scope.information.datas.push(data.url);
-      $scope.dataModal.hide();
     };
 
 	  $scope.$on('$stateChangeSuccess', function() {
