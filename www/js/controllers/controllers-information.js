@@ -4,16 +4,21 @@ informationControllers.controller('informationController', [
   '$scope',
   '$stateParams',
   '$state',
+  '$ionicModal',
   'informationService',
+  'dataService',
   function(
     $scope,
     $stateParams,
     $state,
-    informationService
+    $ionicModal,
+    informationService,
+    dataService
   )
   {
 	  $scope.informations = informationService.list();
 	  $scope.information = informationService.detail({id: $stateParams.id});
+    $scope.datas = dataService.list();
 
 	  $scope.create = function () {
 	    informationService.create($scope.information);
@@ -36,6 +41,41 @@ informationControllers.controller('informationController', [
 	  $scope.cancel = function () {
 	    $state.go('tab.information-list');
 	  }
+
+    $ionicModal.fromTemplateUrl('templates/information/select-data.html', {
+      scope: $scope,
+      controller: 'informationCotroller',
+      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.dataModal = modal;
+    });
+    $scope.dataOpenModal = function() {
+      $scope.dataModal.show();
+    };
+    $scope.dataCloseModal = function() {
+      $scope.dataModal.hide();
+    };
+    // Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.dataModal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('dataModal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('dataModal.removed', function() {
+      // Execute action
+    });
+
+    $scope.information.datas = [];
+    $scope.selectData = function(data) {
+      
+      $scope.information.data = data.name;
+      $scope.information.datas.push(data.url);
+      $scope.dataModal.hide();
+    };
 
 	  $scope.$on('$stateChangeSuccess', function() {
 	    $scope.informations = informationService.list();

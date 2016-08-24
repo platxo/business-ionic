@@ -1,6 +1,10 @@
 <ion-view view-title="Knowledge Update">
   <ion-content padding="true">
     <form ng-submit="update()" class="list">
+      <label class="item item-input item-select" ng-click="informationOpenModal()">
+        <span class="input-label">Information</span>
+          <input ng-model="informationName" type="text" value="{{Knowledge.information}}">
+      </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="knowledge.name" type="text" placeholder="" value="">
