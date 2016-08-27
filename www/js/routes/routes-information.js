@@ -48,6 +48,6 @@ informationRoutes.config(['$stateProvider', '$urlRouterProvider', function ($sta
       }
     })
 
-  $urlRouterProvider.otherwise('/tab/information-list');
+  $urlRouterProvider.otherwise('/login');
 
 }]);

@@ -53,6 +53,6 @@ knowledgeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($state
       }
     })
 
-  $urlRouterProvider.otherwise('/tab/knowledge-list');
+  $urlRouterProvider.otherwise('/login');
 
 }]);

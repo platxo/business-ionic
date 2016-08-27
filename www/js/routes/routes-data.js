@@ -48,6 +48,6 @@ dataRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       }
     })
 
-  $urlRouterProvider.otherwise('/tab/data-list');
+  $urlRouterProvider.otherwise('/login');
 
 }]);

@@ -6,6 +6,10 @@
 var business = angular.module('business', [
   'ionic',
   'ngCordova',
+  'ngResource',
+  'authControllers',
+  'authServices',
+  'authRoutes',
   'dataControllers',
   'dataServices',
   'dataRoutes',
@@ -34,3 +38,9 @@ business.run(function($ionicPlatform) {
     }
   });
 })
+
+// business.config(['$httpProvider', function ($httpProvider) {
+//   $httpProvider
+//     .defaults.xsrfCookieName = 'csrftoken'
+//     .defaults.xsrfHeaderName = 'X-CSRFToken';
+// }]);

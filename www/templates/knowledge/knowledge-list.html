@@ -5,6 +5,7 @@
 	</ion-nav-buttons>
 
 	<ion-content padding="true">
+		{{user.username}}
 		<ion-list>
 			<ion-item ui-sref="tab.knowledge-detail({ id: knowledge.id })" ng-repeat="knowledge in knowledges" class="item item-button-right item-thumbnail-left">
 				<h2>{{ knowledge.name }}</h2>
