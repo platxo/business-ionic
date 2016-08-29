@@ -6,7 +6,6 @@
 var business = angular.module('business', [
   'ionic',
   'ngCordova',
-  'ngResource',
   'authControllers',
   'authServices',
   'authRoutes',
@@ -21,8 +20,17 @@ var business = angular.module('business', [
   'knowledgeRoutes'
 ])
 
-business.run(function($ionicPlatform) {
+business.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
+    $rootScope.token = JSON.parse(localStorage.getItem("token"));
+    $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
+
+    $rootScope.logout = function() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      $location.path('/login');
+    };
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -39,8 +47,6 @@ business.run(function($ionicPlatform) {
   });
 })
 
-// business.config(['$httpProvider', function ($httpProvider) {
-//   $httpProvider
-//     .defaults.xsrfCookieName = 'csrftoken'
-//     .defaults.xsrfHeaderName = 'X-CSRFToken';
+// business.config(['$httpProvider', function($httpProvider) {
+//     $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
 // }]);

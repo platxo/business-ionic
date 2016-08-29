@@ -4,9 +4,19 @@
 		<button ui-sref="tab.information-create" class="button icon ion-android-add-circle"></button>
 	</ion-nav-buttons>
 
+	<ion-nav-buttons side="right">
+    <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
+  </ion-nav-buttons>
+
 	<ion-content padding="true">
 		<ion-list>
-			<ion-item ui-sref="tab.information-detail({ id: information.id })" ng-repeat="information in informations" class="item item-button-right item-thumbnail-left">
+			<label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input ng-model="search.value" type="search" placeholder="Search" ng-change="scrollTop()">
+        <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
+       </button>
+      </label>
+			<ion-item ui-sref="tab.information-detail({ id: information.id })" ng-repeat="information in informations | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
 				<h2>{{ information.name }}</h2>
 
 				<div class="buttons">

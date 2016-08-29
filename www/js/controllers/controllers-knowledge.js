@@ -5,6 +5,7 @@ knowledgeControllers.controller('knowledgeController', [
   '$stateParams',
   '$state',
   '$ionicModal',
+  '$ionicPopover',
   'knowledgeService',
   'informationService',
   function(
@@ -12,6 +13,7 @@ knowledgeControllers.controller('knowledgeController', [
     $stateParams,
     $state,
     $ionicModal,
+    $ionicPopover,
     knowledgeService,
     informationService
   )
@@ -75,7 +77,16 @@ knowledgeControllers.controller('knowledgeController', [
       $scope.knowledge.informations.push(information.url);
     };
 
-	  $scope.$on('$stateChangeSuccess', function() {
+    $scope.menu = function($event) {
+      $scope.popover.show($event);
+    };
+    $ionicPopover.fromTemplateUrl('templates/menu.html', {
+      scope: $scope,
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+
+    $scope.$on('$stateChangeSuccess', function() {
 	    $scope.knowledges = knowledgeService.list();
 	  })
 

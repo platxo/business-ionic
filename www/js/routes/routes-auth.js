@@ -17,35 +17,12 @@ authRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
     templateUrl: 'templates/auth/auth-forgot-password.html',
     controller: 'forgotPasswordController'
   })
+  .state('profile', {
+    url: '/profile',
+    templateUrl: 'templates/auth/auth-profile.html',
+    controller: 'profileController'
+  })
 
   $urlRouterProvider.otherwise('/login');
 
 }]);
-
-// .state('signup', {
-//   url: '/signup',
-//   views: {
-//     'view-login': {
-//       templateUrl: 'templates/auth/auth-signup.html',
-//       controller: 'signupController'
-//     }
-//   }
-// })
-// .state('login', {
-//   url: '/login',
-//   views: {
-//     'view-login': {
-//       templateUrl: 'templates/auth/auth-login.html',
-//       controller: 'loginController'
-//     }
-//   }
-// })
-// .state('forgotpassword', {
-//   url: '/forgot-password',
-//   views: {
-//     'view-forgot-pasword': {
-//       templateUrl: 'templates/auth/auth-forgot-password.html',
-//       controller: 'forgotPasswordController'
-//     }
-//   }
-// })

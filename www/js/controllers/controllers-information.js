@@ -5,6 +5,7 @@ informationControllers.controller('informationController', [
   '$stateParams',
   '$state',
   '$ionicModal',
+  '$ionicPopover',
   'informationService',
   'dataService',
   function(
@@ -12,6 +13,7 @@ informationControllers.controller('informationController', [
     $stateParams,
     $state,
     $ionicModal,
+    $ionicPopover,
     informationService,
     dataService
   )
@@ -76,9 +78,18 @@ informationControllers.controller('informationController', [
       $scope.information.datas.push(data.url);
     };
 
-	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.informations = informationService.list();
-	  })
+    $scope.menu = function($event) {
+      $scope.popover.show($event);
+    };
+    $ionicPopover.fromTemplateUrl('templates/menu.html', {
+      scope: $scope,
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.informations = informationService.list();
+    })
 
 	}
 ]);
