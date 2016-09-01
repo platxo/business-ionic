@@ -3,6 +3,7 @@
     <div class="list card">
       <div class="item item-divider">{{knowledge.name}}</div>
       <div class="item item-body">
+				<h3 ng-repeat="information in informations">{{information.name}}</h3>
 				<p>created: {{knowledge.created | date:"MM/dd/yyyy 'at' h:mma"}}</p>
 				<p>updated: {{knowledge.updated | date:"MM/dd/yyyy 'at' h:mma"}}</p>
       </div>

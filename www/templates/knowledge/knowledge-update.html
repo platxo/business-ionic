@@ -9,6 +9,12 @@
         <span class="input-label">Information</span>
           <input ng-model="informationName" type="text" value="{{Knowledge.information}}">
       </label>
+      <label class="item item-input item-select">
+	      <span class="input-label">Tag</span>
+	      <select ng-model="knowledge.tag">
+		    	<option ng-repeat="tag in tags" value="{{tag}}">{{tag}}</option>
+				</select>
+			</label>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Update</button>
       <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>

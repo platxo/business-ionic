@@ -5,11 +5,13 @@ authControllers.controller('signupController', [
   '$state',
   '$location',
   'signupService',
+  'loginService',
   function(
     $scope,
     $state,
     $location,
-    signupService
+    signupService,
+    loginService
   )
   {
     $scope.user = {}
@@ -19,7 +21,16 @@ authControllers.controller('signupController', [
         .$promise
           .then( function (res) {
             console.log(res);
-            $location.path('/login');
+            loginService.login($scope.user)
+              .$promise
+                .then( function (res) {
+                  localStorage.setItem('token', JSON.stringify(res.token));
+                  localStorage.setItem('user', JSON.stringify(res.user));
+                  $state.go('tab.knowledge-list');
+                }, function (err) {
+                  console.log(err);
+                  $location.path('/login');
+                })
           }, function (err) {
             console.log(err);
           })
@@ -57,8 +68,6 @@ authControllers.controller('loginController', [
         function (err) {
           console.log(err);
         })
-        //localStorage.getItem('token');
-        //localStorage.removeItem('token');
     }
 	}
 ]);

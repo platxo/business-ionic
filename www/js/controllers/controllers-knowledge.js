@@ -2,6 +2,7 @@ var knowledgeControllers = angular.module('knowledgeControllers', []);
 
 knowledgeControllers.controller('knowledgeController', [
   '$scope',
+  '$rootScope',
   '$stateParams',
   '$state',
   '$ionicModal',
@@ -10,6 +11,7 @@ knowledgeControllers.controller('knowledgeController', [
   'informationService',
   function(
     $scope,
+    $rootScope,
     $stateParams,
     $state,
     $ionicModal,
@@ -21,8 +23,18 @@ knowledgeControllers.controller('knowledgeController', [
 	  $scope.knowledges = knowledgeService.list();
 	  $scope.knowledge = knowledgeService.detail({id: $stateParams.id});
     $scope.informations = informationService.list();
+    $scope.tags = {
+      'Grey': 'grey',
+      'Red':'red',
+      'Yellow': 'yellow',
+      'Blue': 'blue',
+      'Orange': 'orange',
+      'Green': 'green',
+      'Purple': 'purple'
+    };
 
 	  $scope.create = function () {
+      $scope.knowledge.user = $rootScope.currentUser.url
 	    knowledgeService.create($scope.knowledge);
 	    $scope.knowledges = knowledgeService.list();
 	    $state.go('tab.knowledge-list');
@@ -85,6 +97,11 @@ knowledgeControllers.controller('knowledgeController', [
     }).then(function(popover) {
       $scope.popover = popover;
     });
+
+    $scope.refresh = function () {
+      $scope.knowledges = knowledgeService.list();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
 
     $scope.$on('$stateChangeSuccess', function() {
 	    $scope.knowledges = knowledgeService.list();

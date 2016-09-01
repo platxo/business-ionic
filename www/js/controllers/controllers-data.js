@@ -2,22 +2,31 @@ var dataControllers = angular.module('dataControllers', []);
 
 dataControllers.controller('dataController', [
   '$scope',
+  '$rootScope',
   '$stateParams',
   '$state',
   '$ionicPopover',
-  '$rootScope',
   'dataService',
   function(
     $scope,
+    $rootScope,
     $stateParams,
     $state,
     $ionicPopover,
-    $rootScope,
     dataService
   )
   {
 	  $scope.datas = dataService.list();
 	  $scope.data = dataService.detail({id: $stateParams.id});
+    $scope.tags = {
+      'Grey': 'grey',
+      'Red':'red',
+      'Yellow': 'yellow',
+      'Blue': 'blue',
+      'Orange': 'orange',
+      'Green': 'green',
+      'Purple': 'purple'
+    };
 
 	  $scope.create = function () {
       $scope.data.user = $rootScope.currentUser.url
@@ -68,6 +77,11 @@ dataControllers.controller('dataController', [
     $scope.$on('popover.removed', function() {
       // Execute action
     });
+
+    $scope.refresh = function () {
+      $scope.datas = dataService.list();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
 
 	  $scope.$on('$stateChangeSuccess', function() {
 	    $scope.datas = dataService.list();

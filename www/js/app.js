@@ -24,12 +24,13 @@ business.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
     $rootScope.token = JSON.parse(localStorage.getItem("token"));
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
-
+    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
     $rootScope.logout = function() {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       $location.path('/login');
     };
+    $rootScope.version = 'http://development.'
 
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

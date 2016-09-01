@@ -9,6 +9,7 @@
   </ion-nav-buttons>
 
 	<ion-content padding="true">
+		<ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
 		<ion-list>
 			<label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
@@ -16,9 +17,9 @@
         <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
        </button>
       </label>
-			<ion-item ui-sref="tab.data-detail({ id: data.id })" ng-repeat="data in datas | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
+			<ion-item ui-sref="tab.data-detail({ id: data.id })" ng-repeat="data in datas | orderBy:'tag' | filter:search.value" class="item item-button-right item-avatar-left">
+				<img ng-src="img/tags/{{ data.tag }}.png">
 				<h2>{{ data.name }}</h2>
-
 				<div class="buttons">
 				  <ion-option-button ui-sref="tab.data-update({id: data.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
 				  <ion-option-button ui-sref="tab.data-delete({id: data.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>

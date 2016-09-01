@@ -2,6 +2,7 @@ var informationControllers = angular.module('informationControllers', []);
 
 informationControllers.controller('informationController', [
   '$scope',
+  '$rootScope',
   '$stateParams',
   '$state',
   '$ionicModal',
@@ -10,6 +11,7 @@ informationControllers.controller('informationController', [
   'dataService',
   function(
     $scope,
+    $rootScope,
     $stateParams,
     $state,
     $ionicModal,
@@ -21,8 +23,18 @@ informationControllers.controller('informationController', [
 	  $scope.informations = informationService.list();
 	  $scope.information = informationService.detail({id: $stateParams.id});
     $scope.datas = dataService.list();
+    $scope.tags = {
+      'Grey': 'grey',
+      'Red':'red',
+      'Yellow': 'yellow',
+      'Blue': 'blue',
+      'Orange': 'orange',
+      'Green': 'green',
+      'Purple': 'purple'
+    };
 
 	  $scope.create = function () {
+      $scope.information.user = $rootScope.currentUser.url
 	    informationService.create($scope.information);
 	    $scope.informations = informationService.list();
 	    $state.go('tab.information-list');
@@ -86,6 +98,11 @@ informationControllers.controller('informationController', [
     }).then(function(popover) {
       $scope.popover = popover;
     });
+
+    $scope.refresh = function () {
+      $scope.informations = informationService.list();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
 
     $scope.$on('$stateChangeSuccess', function() {
       $scope.informations = informationService.list();
