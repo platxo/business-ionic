@@ -34,7 +34,8 @@ knowledgeControllers.controller('knowledgeController', [
     };
 
 	  $scope.create = function () {
-      $scope.knowledge.user = $rootScope.currentUser.url
+      $scope.knowledge.business = $rootScope.currentBusiness
+      $scope.knowledge.owner = $rootScope.currentOwner
 	    knowledgeService.create($scope.knowledge);
 	    $scope.knowledges = knowledgeService.list();
 	    $state.go('tab.knowledge-list');

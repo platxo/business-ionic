@@ -29,7 +29,8 @@ dataControllers.controller('dataController', [
     };
 
 	  $scope.create = function () {
-      $scope.data.user = $rootScope.currentUser.url
+      $scope.data.business = $rootScope.currentBusiness
+      $scope.data.owner = $rootScope.currentOwner
 	    dataService.create($scope.data);
 	    $scope.datas = dataService.list();
 	    $state.go('tab.data-list');

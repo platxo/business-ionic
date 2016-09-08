@@ -34,7 +34,8 @@ informationControllers.controller('informationController', [
     };
 
 	  $scope.create = function () {
-      $scope.information.user = $rootScope.currentUser.url
+      $scope.information.business = $rootScope.currentBusiness
+      $scope.information.owner = $rootScope.currentOwner
 	    informationService.create($scope.information);
 	    $scope.informations = informationService.list();
 	    $state.go('tab.information-list');
