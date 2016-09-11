@@ -34,8 +34,8 @@ informationControllers.controller('informationController', [
     };
 
 	  $scope.create = function () {
-      $scope.information.business = $rootScope.currentBusiness
-      $scope.information.owner = $rootScope.currentOwner
+      $scope.information.business = $rootScope.currentBusiness.id;
+      $scope.information.owner = $rootScope.currentOwner;
 	    informationService.create($scope.information);
 	    $scope.informations = informationService.list();
 	    $state.go('tab.information-list');
@@ -53,9 +53,20 @@ informationControllers.controller('informationController', [
 	    $state.go('tab.information-list');
 	  }
 
+    $scope.information.datas = [];
+    $scope.selectData = function(data) {
+      $scope.information.data = data.name;
+      $scope.information.datas.push(data.id);
+    };
+
 	  $scope.cancel = function () {
 	    $state.go('tab.information-list');
 	  }
+
+    $scope.refresh = function () {
+      $scope.informations = informationService.list();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
 
     $ionicModal.fromTemplateUrl('templates/information/select-data.html', {
       scope: $scope,
@@ -84,13 +95,6 @@ informationControllers.controller('informationController', [
       // Execute action
     });
 
-    $scope.information.datas = [];
-    $scope.selectData = function(data) {
-
-      $scope.information.data = data.name;
-      $scope.information.datas.push(data.url);
-    };
-
     $scope.menu = function($event) {
       $scope.popover.show($event);
     };
@@ -99,11 +103,6 @@ informationControllers.controller('informationController', [
     }).then(function(popover) {
       $scope.popover = popover;
     });
-
-    $scope.refresh = function () {
-      $scope.informations = informationService.list();
-      $scope.$broadcast('scroll.refreshComplete');
-    }
 
     $scope.$on('$stateChangeSuccess', function() {
       $scope.informations = informationService.list();

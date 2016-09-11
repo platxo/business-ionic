@@ -29,8 +29,8 @@ dataControllers.controller('dataController', [
     };
 
 	  $scope.create = function () {
-      $scope.data.business = $rootScope.currentBusiness
-      $scope.data.owner = $rootScope.currentOwner
+      $scope.data.business = $rootScope.currentBusiness.id;
+      $scope.data.owner = $rootScope.currentOwner;
 	    dataService.create($scope.data);
 	    $scope.datas = dataService.list();
 	    $state.go('tab.data-list');
@@ -51,6 +51,11 @@ dataControllers.controller('dataController', [
 	  $scope.cancel = function () {
 	    $state.go('tab.data-list');
 	  }
+
+    $scope.refresh = function () {
+      $scope.datas = dataService.list();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
 
     $ionicPopover.fromTemplateUrl('templates/menu.html', {
       scope: $scope,
@@ -78,11 +83,6 @@ dataControllers.controller('dataController', [
     $scope.$on('popover.removed', function() {
       // Execute action
     });
-
-    $scope.refresh = function () {
-      $scope.datas = dataService.list();
-      $scope.$broadcast('scroll.refreshComplete');
-    }
 
 	  $scope.$on('$stateChangeSuccess', function() {
 	    $scope.datas = dataService.list();

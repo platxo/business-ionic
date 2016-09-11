@@ -1,8 +1,8 @@
-var dataServices = angular.module('dataServices', ['ngResource']);
+var businessServices = angular.module('businessServices', ['ngResource']);
 
-dataServices.service('dataService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var datasUrl = '/api/datas/';
-  return $resource($rootScope.version + $rootScope.baseUrl + datasUrl +':id/?format=json', {id: '@id'},{
+businessServices.service('businessService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+  var businessUrl = '/api/business/';
+  return $resource($rootScope.version + $rootScope.baseUrl + businessUrl +':id/?format=json', {id: '@id'},{
     list: { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
     detail: { method: 'GET', headers: $rootScope.headersJWT },
     create: { method: 'POST', headers: $rootScope.headersJWT },

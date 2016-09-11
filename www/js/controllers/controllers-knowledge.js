@@ -34,8 +34,8 @@ knowledgeControllers.controller('knowledgeController', [
     };
 
 	  $scope.create = function () {
-      $scope.knowledge.business = $rootScope.currentBusiness
-      $scope.knowledge.owner = $rootScope.currentOwner
+      $scope.knowledge.business = $rootScope.currentBusiness.id;
+      $scope.knowledge.owner = $rootScope.currentOwner;
 	    knowledgeService.create($scope.knowledge);
 	    $scope.knowledges = knowledgeService.list();
 	    $state.go('tab.knowledge-list');
@@ -53,9 +53,20 @@ knowledgeControllers.controller('knowledgeController', [
 	    $state.go('tab.knowledge-list');
 	  }
 
+    $scope.knowledge.informations = [];
+    $scope.selectInformation = function(information) {
+      $scope.knowledge.information = information.name;
+      $scope.knowledge.informations.push(information.id);
+    };
+
 	  $scope.cancel = function () {
 	    $state.go('tab.knowledge-list');
 	  }
+
+    $scope.refresh = function () {
+      $scope.knowledges = knowledgeService.list();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
 
     $ionicModal.fromTemplateUrl('templates/knowledge/select-information.html', {
       scope: $scope,
@@ -84,12 +95,6 @@ knowledgeControllers.controller('knowledgeController', [
       // Execute action
     });
 
-    $scope.knowledge.informations = [];
-    $scope.selectInformation = function(information) {
-      $scope.knowledge.information = information.name;
-      $scope.knowledge.informations.push(information.url);
-    };
-
     $scope.menu = function($event) {
       $scope.popover.show($event);
     };
@@ -98,11 +103,6 @@ knowledgeControllers.controller('knowledgeController', [
     }).then(function(popover) {
       $scope.popover = popover;
     });
-
-    $scope.refresh = function () {
-      $scope.knowledges = knowledgeService.list();
-      $scope.$broadcast('scroll.refreshComplete');
-    }
 
     $scope.$on('$stateChangeSuccess', function() {
 	    $scope.knowledges = knowledgeService.list();

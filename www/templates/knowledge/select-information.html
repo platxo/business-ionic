@@ -1,6 +1,8 @@
 <ion-modal-view>
   <ion-header-bar class="bar-balanced">
-    <h1 class="title">Select Information</h1><button class="button icon ion-android-cancel" ng-click="informationCloseModal()"></button>
+    <h1 class="title">Select Information</h1>
+    <button class="button icon ion-android-checkbox" ng-click="informationCloseModal()"></button>
+    <button class="button icon ion-android-cancel" ng-click="informationCloseModal()"></button>
   </ion-header-bar>
   <ion-content>
     <label class="item item-input">
@@ -10,8 +12,8 @@
      </button>
     </label>
     <ion-checkbox
-      ng-repeat="information in informations | orderBy:'name' | filter:search.value"
-      ng-value="{{'information.url'}}"
+      ng-repeat="information in informations | orderBy:'name' | filter:search.value | filter: currentBusiness.id"
+      ng-value="{{'information.id'}}"
       ng-click="selectInformation(information)"
       >{{information.name}}
     </ion-checkbox>

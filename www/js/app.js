@@ -1,14 +1,12 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 var business = angular.module('business', [
   'ionic',
   'ngCordova',
   'authControllers',
   'authServices',
   'authRoutes',
+  'businessControllers',
+  'businessServices',
+  'businessRoutes',
   'dataControllers',
   'dataServices',
   'dataRoutes',
@@ -22,11 +20,13 @@ var business = angular.module('business', [
 
 business.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
-    $rootScope.version = 'http://development.';
-    $rootScope.baseUrl = 'platxo-bi.appspot.com';
+    //$rootScope.version = 'http://development.';
+    //$rootScope.baseUrl = 'platxo-bi.appspot.com';
+    $rootScope.version = 'http://localhost';
+    $rootScope.baseUrl = ':8080';
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
-    $rootScope.currentBusiness = $rootScope.currentUser.business || '';
+    $rootScope.currentBusiness = JSON.parse(localStorage.getItem("bs")) || '';
     $rootScope.currentOwner = $rootScope.currentUser.owner || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
     $rootScope.logout = function() {

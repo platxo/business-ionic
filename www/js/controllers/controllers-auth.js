@@ -17,6 +17,7 @@ authControllers.controller('signupController', [
     $scope.user = {}
 
     $scope.signup = function () {
+      $scope.user.is_owner = true;
 	    signupService.signup($scope.user)
         .$promise
           .then( function (res) {
@@ -25,7 +26,7 @@ authControllers.controller('signupController', [
                 .then( function (res) {
                   localStorage.setItem('token', JSON.stringify(res.token));
                   localStorage.setItem('user', JSON.stringify(res.user));
-                  $state.go('tab.knowledge-list');
+                  $location.path('/business-list');
                 }, function (err) {
                   $location.path('/login');
                 })
@@ -59,7 +60,7 @@ authControllers.controller('loginController', [
         .then( function (res) {
           localStorage.setItem('token', JSON.stringify(res.token));
           localStorage.setItem('user', JSON.stringify(res.user));
-          $state.go('tab.knowledge-list');
+          $location.path('/business-list');
         },
         function (err) {
         })

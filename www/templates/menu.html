@@ -1,10 +1,17 @@
-<ion-popover-view style="height: 120px">
+<ion-popover-view>
   <ion-content>
 
     <ion-list>
       <ion-item href="#/profile">
         <i class="icon ion-person"></i>
         {{currentUser.username}}
+      </ion-item>
+      <ion-item href="#/business-list">
+        <i class="icon ion-briefcase"></i>
+        Business
+        <p>
+          {{currentBusiness.name}}
+        </p>
       </ion-item>
       <ion-item ng-click="logout()" ui-sref="#">
         <i class="icon ion-power"></i>
