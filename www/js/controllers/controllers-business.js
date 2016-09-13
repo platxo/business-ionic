@@ -84,9 +84,13 @@ businessControllers.controller('businessController', [
 	  })
 
     $scope.selectBusiness = function(bs) {
-      localStorage.setItem('bs', JSON.stringify(bs));
+      window.localStorage.setItem('bs', JSON.stringify(bs));
       $state.go('tab.knowledge-list');
-    };
+    }
+
+    $scope.$on('$stateChangeSuccess', function() {
+	    $scope.business = businessService.list();
+	  })
 
 	}
 ]);

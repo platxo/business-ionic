@@ -32,6 +32,7 @@ business.run(function($ionicPlatform, $rootScope, $location) {
     $rootScope.logout = function() {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('bs');
       $location.path('/login');
     };
     if(window.cordova && window.cordova.plugins.Keyboard) {

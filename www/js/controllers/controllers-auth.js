@@ -24,16 +24,15 @@ authControllers.controller('signupController', [
             loginService.login($scope.user)
               .$promise
                 .then( function (res) {
-                  localStorage.setItem('token', JSON.stringify(res.token));
-                  localStorage.setItem('user', JSON.stringify(res.user));
-                  $location.path('/business-list');
+                  window.localStorage.setItem('token', JSON.stringify(res.token));
+                  window.localStorage.setItem('user', JSON.stringify(res.user));
+                  $state.go('business-list');
                 }, function (err) {
                   $location.path('/login');
                 })
           }, function (err) {
+            $location.path('/signup');
           })
-
-	    $state.go('tab.knowledge-list');
 	  }
 	}
 ]);
@@ -58,9 +57,9 @@ authControllers.controller('loginController', [
     loginService.login($scope.user)
       .$promise
         .then( function (res) {
-          localStorage.setItem('token', JSON.stringify(res.token));
-          localStorage.setItem('user', JSON.stringify(res.user));
-          $location.path('/business-list');
+          window.localStorage.setItem('token', JSON.stringify(res.token));
+          window.localStorage.setItem('user', JSON.stringify(res.user));
+          $state.go('business-list');
         },
         function (err) {
         })
