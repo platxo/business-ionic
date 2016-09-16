@@ -1,0 +1,21 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-balanced">
+    <h1 class="title">Select employee</h1>
+    <button class="button icon ion-android-checkbox" ng-click="addEmployeeCloseModal()"></button>
+    <button class="button icon ion-android-cancel" ng-click="addEmployeeCloseModal()"></button>
+  </ion-header-bar>
+  <ion-content>
+    <label class="item item-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input ng-model="search.value" type="search" placeholder="Search" ng-change="scrollTop()">
+      <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
+     </button>
+    </label>
+    <ion-radio
+      ng-repeat="employee in employees | orderBy:'name' | filter:search.value"
+      ng-value="{{'employee.id'}}"
+      ng-click="addEmployee(employee)"
+      >{{employee.user}}
+    </ion-radio>
+  </ion-content>
+</ion-modal-view>

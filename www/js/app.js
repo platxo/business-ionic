@@ -20,10 +20,10 @@ var business = angular.module('business', [
 
 business.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
-    //$rootScope.version = 'http://development.';
-    //$rootScope.baseUrl = 'platxo-bi.appspot.com';
-    $rootScope.version = 'http://localhost';
-    $rootScope.baseUrl = ':8080';
+    $rootScope.version = 'http://development.';
+    $rootScope.baseUrl = 'platxo-bi.appspot.com';
+    // $rootScope.version = 'http://localhost';
+    // $rootScope.baseUrl = ':8080';
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
     $rootScope.currentBusiness = JSON.parse(localStorage.getItem("bs")) || '';
