@@ -23,7 +23,16 @@
                     <input ng-model="user.password" type="password" placeholder="">
                 </label>
             </ion-list>
-            <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-person-add">Sign up</button>
+            <button
+            type="submit"
+            class="button button-balanced button-block button-outline icon-left ion-android-person-add">
+            Sign up
+            </button>
+            <a
+            ui-sref="login"
+            class="button button-positive  button-block button-outline icon-left ion-android-arrow-back">
+            Cancel
+            </a>
         </form>
     </ion-content>
 </ion-view>

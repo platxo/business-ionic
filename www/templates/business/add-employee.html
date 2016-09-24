@@ -1,6 +1,6 @@
 <ion-modal-view>
   <ion-header-bar class="bar-balanced">
-    <h1 class="title">Select employee</h1>
+    <h1 class="title">Add employee</h1>
     <button class="button icon ion-android-checkbox" ng-click="addEmployeeCloseModal()"></button>
     <button class="button icon ion-android-cancel" ng-click="addEmployeeCloseModal()"></button>
   </ion-header-bar>
@@ -13,7 +13,6 @@
     </label>
     <ion-radio
       ng-repeat="employee in employees | orderBy:'name' | filter:search.value"
-      ng-value="{{'employee.id'}}"
       ng-click="addEmployee(employee)"
       >{{employee.user}}
     </ion-radio>

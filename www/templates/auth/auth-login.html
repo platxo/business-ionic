@@ -3,7 +3,7 @@
         <form  ng-submit="login()" class="list">
             <ion-list>
                 <label class="item item-input">
-                    <span class="input-label">Username</span>
+                    <span class="input-label">Username or Email</span>
                     <input ng-model="user.username"type="text" placeholder="">
                 </label>
                 <label class="item item-input">
@@ -13,7 +13,8 @@
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
             <button type="submit" class="button button-balanced button-block button-outline icon-left ion-log-in">Log in</button>
-            <a href="#/signup"  class="button button-positive  button-block button-outline icon-left ion-android-person-add">Or create an account</a>
+            <a ui-sref="signup"  class="button button-positive  button-block button-outline icon-left ion-android-person-add">Or create an account</a>
+            <a ui-sref="forgot-password"  class="button button-positive  button-block button-clear">Forgot password?</a>
         </form>
     </ion-content>
 </ion-view>

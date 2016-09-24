@@ -4,9 +4,11 @@ var business = angular.module('business', [
   'authControllers',
   'authServices',
   'authRoutes',
+  'authDirectives',
   'businessControllers',
   'businessServices',
   'businessRoutes',
+  'businessFilters',
   'dataControllers',
   'dataServices',
   'dataRoutes',
@@ -15,26 +17,26 @@ var business = angular.module('business', [
   'informationRoutes',
   'knowledgeControllers',
   'knowledgeServices',
-  'knowledgeRoutes'
+  'knowledgeRoutes',
+  'calculatorControllers',
+  'calculatorServices',
+  'calculatorDirectives',
+  'menuDirectives'
 ])
 
-business.run(function($ionicPlatform, $rootScope, $location) {
+business.run(function($ionicPlatform, $rootScope, $state) {
+  $rootScope.version = 'http://development.';
+  $rootScope.baseUrl = 'platxo-bi.appspot.com';
+  // $rootScope.version = 'http://localhost';
+  // $rootScope.baseUrl = ':8080';
+  $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+  $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
+  $rootScope.currentBusiness = JSON.parse(localStorage.getItem("bs")) || '';
+  $rootScope.currentOwner = $rootScope.currentUser.owner || '';
+  $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
+
   $ionicPlatform.ready(function() {
-    $rootScope.version = 'http://development.';
-    $rootScope.baseUrl = 'platxo-bi.appspot.com';
-    // $rootScope.version = 'http://localhost';
-    // $rootScope.baseUrl = ':8080';
-    $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
-    $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
-    $rootScope.currentBusiness = JSON.parse(localStorage.getItem("bs")) || '';
-    $rootScope.currentOwner = $rootScope.currentUser.owner || '';
-    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
-    $rootScope.logout = function() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('bs');
-      $location.path('/login');
-    };
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)

@@ -2,21 +2,18 @@
   <ion-content>
 
     <ion-list>
-      <ion-item href="#/profile">
+      <ion-item ui-sref="profile" ng-click="popover.hide()">
         <i class="icon ion-person"></i>
-        {{currentUser.username}}
+        {{currentOwner.user}}
       </ion-item>
-      <ion-item href="#/business-list">
+      <ion-item ui-sref="business-list" ng-click="popover.hide()">
         <i class="icon ion-briefcase"></i>
         Business
         <p>
           {{currentBusiness.name}}
         </p>
       </ion-item>
-      <ion-item ng-click="logout()" ui-sref="#">
-        <i class="icon ion-power"></i>
-        Logout
-      </ion-item>
+      <logout-Directive></logout-Directive>
     </ion-list>
 
   </ion-content>

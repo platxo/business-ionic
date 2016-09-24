@@ -7,7 +7,6 @@ businessControllers.controller('businessController', [
   '$state',
   '$location',
   '$ionicModal',
-  '$ionicPopover',
   'businessService',
   'employeesService',
   function(
@@ -17,7 +16,6 @@ businessControllers.controller('businessController', [
     $state,
     $location,
     $ionicModal,
-    $ionicPopover,
     businessService,
     employeesService
   )
@@ -37,7 +35,6 @@ businessControllers.controller('businessController', [
 	  }
 
 	  $scope.update = function () {
-      debugger
 	    businessService.update($scope.bs);
 	    $scope.business = businessService.list();
 	    $state.go('business-list');
@@ -51,15 +48,13 @@ businessControllers.controller('businessController', [
 
     $scope.addEmployee = function(employee) {
       $scope.bs.employees.push(employee.id);
+      $scope.business.employess = employee.user
+      $scope.addEmployeeModal.hide();
     };
-
-    // $scope.removeEmployee = function(employee) {
-    //   $scope.bs.employees.splice($scope.bs.employees.indexOf(employee.id), 1);
-    // };
 
     $scope.removeEmployee = function(employee) {
       var employeeIndex = $scope.bs.employees.indexOf(employee.id);
-      if (employeeIndex>-1){
+      if (employeeIndex > -1 ) {
         $scope.bs.employees.splice(employeeIndex, 1);
       }
     };
@@ -127,33 +122,6 @@ businessControllers.controller('businessController', [
       // Execute action
     });
 
-    $ionicPopover.fromTemplateUrl('templates/menu.html', {
-      scope: $scope,
-    }).then(function(popover) {
-      $scope.popover = popover;
-    });
-
-    $scope.menu = function($event) {
-      $scope.popover.show($event);
-    };
-
-    $scope.closeMenu = function() {
-      $scope.popover.hide();
-    };
-
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.popover.remove();
-    });
-    // Execute action on hide popover
-    $scope.$on('popover.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function() {
-      // Execute action
-    });
-
     $scope.refresh = function () {
       $scope.business = businessService.list();
       $scope.$broadcast('scroll.refreshComplete');
@@ -164,7 +132,8 @@ businessControllers.controller('businessController', [
 	  })
 
     $scope.selectBusiness = function(bs) {
-      window.localStorage.setItem('bs', JSON.stringify(bs));
+      $rootScope.currentBusiness = bs
+      window.localStorage.setItem('bs', JSON.stringify($rootScope.currentBusiness));
       $state.go('tab.knowledge-list');
     }
 

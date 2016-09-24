@@ -2,45 +2,26 @@ var calculatorControllers = angular.module('calculatorControllers', []);
 
 calculatorControllers.controller('calculatorController', [
   '$scope',
-  '$rootScope',
-  '$stateParams',
-  '$state',
-  '$location',
-  '$ionicModal',
+  'calculatorService',
   function(
     $scope,
-    $rootScope,
-    $stateParams,
-    $state,
-    $location,
-    $ionicModal
+    calculatorService
   )
   {
-    $ionicModal.fromTemplateUrl('templates/calculator.html', {
-      scope: $scope,
-      controller: 'calculatorCotroller',
-      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-      focusFirstInput: true
-    }).then(function(modal) {
-      $scope.calculatorModal = modal;
-    });
-    $scope.calculatorOpenModal = function() {
-      $scope.calculatorModal.show();
+    // TODO addition, subtraction, multiplication and division
+
+    $scope.display = '0';
+
+    $scope.clear = function () {
+       $scope.display = '0';
     };
-    $scope.calculatorCloseModal = function() {
-      $scope.calculatorModal.hide();
+
+    $scope.equals = function () {
+        alert('Equals!');
     };
-    // Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.calculatorModal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('calculatorModal.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('calculatorModal.removed', function() {
-      // Execute action
-    });
-	}
+
+    $scope.clicked = function (label) {
+       $scope.display = label;
+   };
+  }
 ]);

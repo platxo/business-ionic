@@ -1,0 +1,167 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-balanced">
+    <h1 class="title">Platxo Calculator</h1>
+    <button class="button icon ion-android-cancel" ng-click="closeModal()"></button>
+  </ion-header-bar>
+
+  <ion-content ng-controller="calculatorController" padding="true" class="has-header">
+    <!-- <div class="spacer" style="height: 40px;"></div> -->
+      <div class="row">
+      <div class="col display text-right">
+        <span><h1>{{display}}</h1></span>
+      </div>
+      </div>
+
+      <div class="row row-center">
+      <div class="col">
+      <button
+      ng-click="clicked('1')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      1
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('2')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      2
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('3')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      3
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('+')"
+      style="font-weight:600;"
+      class="button button-balanced button-large button-outline">
+      +
+      </button>
+      </div>
+      </div>
+
+      <div class="row row-center">
+      <div class="col">
+      <button
+      ng-click="clicked('4')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      4
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('5')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      5
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('6')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      6
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('-')"
+      style="font-weight:600;"
+      class="button button-balanced button-large button-outline">
+      -
+      </button>
+      </div>
+      </div>
+
+      <div class="row row-center">
+      <div class="col">
+      <button
+      ng-click="clicked('7')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      7
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('8')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      8
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('9')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      9
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('*')"
+      style="font-weight:600;"
+      class="button button-balanced button-large button-outline">
+      *
+      </button>
+      </div>
+      </div>
+
+      <div class="row row-center">
+      <div class="col">
+      <button
+      ng-click="clear()"
+      style="font-weight:600;"
+      class="button button-balanced button-large button-outline">
+      clr
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('0')"
+      style="font-weight:600;"
+      class="button button-stable button-large button-outline">
+      0
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('.')"
+      style="font-weight:600;"
+      class="button button-balanced button-large button-outline">
+      .
+      </button>
+      </div>
+      <div class="col">
+      <button
+      ng-click="clicked('/')"
+      style="font-weight:600;"
+      class="button button-balanced button-large button-outline">
+      /
+      </button>
+      </div>
+      </div>
+
+      <div class="row row-center">
+      <div class="col">
+      <button
+      ng-click="equals()"
+      style="font-weight:600;"
+      class="button button-balanced button-large button-block button-default">
+      =
+      </button>
+      </div>
+      </div>
+  </ion-content>
+</ion-modal-view>

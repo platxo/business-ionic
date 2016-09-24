@@ -15,9 +15,5 @@ businessServices.service('employeesService', [ '$resource', '$rootScope', functi
   var employeesUrl = '/api/employees/';
   return $resource($rootScope.version + $rootScope.baseUrl + employeesUrl +':id/?format=json', {id: '@id'},{
     list: { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
-    detail: { method: 'GET', headers: $rootScope.headersJWT },
-    create: { method: 'POST', headers: $rootScope.headersJWT },
-    update: { method: 'PUT', headers: $rootScope.headersJWT },
-    delete: { method: 'DELETE', headers: $rootScope.headersJWT }
   });
 }]);

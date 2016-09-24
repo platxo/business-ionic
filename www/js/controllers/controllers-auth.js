@@ -24,10 +24,12 @@ authControllers.controller('signupController', [
             loginService.login($scope.user)
               .$promise
                 .then( function (res) {
+                  $scope.user = {}
                   window.localStorage.setItem('token', JSON.stringify(res.token));
                   window.localStorage.setItem('user', JSON.stringify(res.user));
                   $state.go('business-list');
                 }, function (err) {
+                  $scope.user = {}
                   $location.path('/login');
                 })
           }, function (err) {
@@ -57,11 +59,15 @@ authControllers.controller('loginController', [
     loginService.login($scope.user)
       .$promise
         .then( function (res) {
+          $scope.user = {}
           window.localStorage.setItem('token', JSON.stringify(res.token));
           window.localStorage.setItem('user', JSON.stringify(res.user));
+          $rootScope.headersJWT = {'Authorization': 'JWT ' + res.token};
+          $rootScope.currentOwner = res.user.owner;
           $state.go('business-list');
         },
         function (err) {
+          $scope.user = {}
         })
     }
 	}
@@ -69,18 +75,56 @@ authControllers.controller('loginController', [
 
 authControllers.controller('forgotPasswordController', [
   '$scope',
-  '$stateParams',
   '$state',
+  'forgotPasswordService',
+  'validateService',
+  'resetPasswordService',
   function(
     $scope,
-    $stateParams,
-    $state
+    $state,
+    forgotPasswordService,
+    validateService,
+    resetPasswordService
   )
   {
+    $scope.step1 = true
 
+    $scope.sendEmail = function (email) {
+      $scope.email = email
+      forgotPasswordService.send($scope.email)
+      .$promise
+        .then (function (res) {
+          $scope.step1 = false
+          $scope.step2 = true
+        }, function (err) {
+
+        })
+    }
+
+    $scope.sendCode = function (code) {
+      validateService.send(code)
+      .$promise
+        .then (function (res) {
+          $scope.step3= true
+          $scope.step2= false
+        }, function (err) {
+
+        })
+    }
+
+    $scope.sendPassword = function (data) {
+      resetPasswordService.send(data)
+      .$promise
+        .then (function (res) {
+          $state.go('login')
+        }, function (err) {
+
+        })
+    }
 
 	}
 ]);
+
 
 authControllers.controller('profileController', [
   '$scope',

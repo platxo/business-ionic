@@ -12,7 +12,7 @@ authRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
     templateUrl: 'templates/auth/auth-login.html',
     controller: 'loginController'
   })
-  .state('forgotpassword', {
+  .state('forgot-password', {
     url: '/forgot-password',
     templateUrl: 'templates/auth/auth-forgot-password.html',
     controller: 'forgotPasswordController'
