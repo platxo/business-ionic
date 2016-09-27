@@ -6,26 +6,65 @@ businessControllers.controller('businessController', [
   '$stateParams',
   '$state',
   '$location',
-  '$ionicModal',
+  '$ionicLoading',
+  '$timeout',
   'businessService',
-  'employeesService',
+  'countriesService',
+  'currenciesService',
+  'crmPointsService',
+  'sizesService',
+  'categoriesService',
+  'typesService',
   function(
     $scope,
     $rootScope,
     $stateParams,
     $state,
     $location,
-    $ionicModal,
+    $ionicLoading,
+    $timeout,
     businessService,
-    employeesService
+    countriesService,
+    currenciesService,
+    crmPointsService,
+    sizesService,
+    categoriesService,
+    typesService
   )
   {
-	  $scope.business = businessService.list();
+    $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+    });
+	  $scope.business = businessService.list()
+    .$promise
+      .then(function (res) {
+        $scope.business = res
+        $ionicLoading.hide();
+      }, function (err) {
+        $ionicLoading.hide();
+        $ionicLoading.show({
+          template: 'Network Error',
+          scope: $scope
+        });
+        $timeout(function() {
+           $ionicLoading.hide();
+        }, 2000);
+      })
+
 	  $scope.bs = businessService.detail({id: $stateParams.id});
-    $scope.employees = employeesService.list();
+    $scope.sizes = sizesService.get();
+    $scope.categories = categoriesService.get();
+    $scope.types = typesService.get();
+    $scope.crmPoints = crmPointsService.get();
+    $scope.countries = countriesService.get();
+    $scope.currencies = currenciesService.get()
 
 	  $scope.create = function () {
-      $scope.bs.owner = $rootScope.currentOwner
+      $scope.bs.owner = $rootScope.currentOwner.id
       $scope.bs.employees = []
       $scope.bs.customers = []
       $scope.bs.suppliers = []
@@ -46,19 +85,6 @@ businessControllers.controller('businessController', [
 	    $state.go('business-list');
 	  }
 
-    $scope.addEmployee = function(employee) {
-      $scope.bs.employees.push(employee.id);
-      $scope.business.employess = employee.user
-      $scope.addEmployeeModal.hide();
-    };
-
-    $scope.removeEmployee = function(employee) {
-      var employeeIndex = $scope.bs.employees.indexOf(employee.id);
-      if (employeeIndex > -1 ) {
-        $scope.bs.employees.splice(employeeIndex, 1);
-      }
-    };
-
 	  $scope.cancel = function () {
 	    $state.go('business-list');
 	  }
@@ -67,69 +93,6 @@ businessControllers.controller('businessController', [
       $scope.business = businessService.list();
       $scope.$broadcast('scroll.refreshComplete');
     }
-
-    $ionicModal.fromTemplateUrl('templates/business/add-employee.html', {
-      scope: $scope,
-      controller: 'businessCotroller',
-      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-      focusFirstInput: true
-    }).then(function(modal) {
-      $scope.addEmployeeModal = modal;
-    });
-    $scope.addEmployeeOpenModal = function() {
-      $scope.addEmployeeModal.show();
-    };
-    $scope.addEmployeeCloseModal = function() {
-      $scope.addEmployeeModal.hide();
-    };
-    // Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.addEmployeeModal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('addEmployeeModal.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('addEmployeeModal.removed', function() {
-      // Execute action
-    });
-
-    $ionicModal.fromTemplateUrl('templates/business/remove-employee.html', {
-      scope: $scope,
-      controller: 'businessCotroller',
-      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-      focusFirstInput: true
-    }).then(function(modal) {
-      $scope.removeEmployeeModal = modal;
-    });
-    $scope.removeEmployeeOpenModal = function() {
-      $scope.removeEmployeeModal.show();
-    };
-    $scope.removeEmployeeCloseModal = function() {
-      $scope.removeEmployeeModal.hide();
-    };
-    // Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.removeEmployeeModal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('removeEmployeeModal.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('removeEmployeeModal.removed', function() {
-      // Execute action
-    });
-
-    $scope.refresh = function () {
-      $scope.business = businessService.list();
-      $scope.$broadcast('scroll.refreshComplete');
-    }
-
-	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.business = businessService.list();
-	  })
 
     $scope.selectBusiness = function(bs) {
       $rootScope.currentBusiness = bs

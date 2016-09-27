@@ -12,7 +12,7 @@
       <label class="item item-input item-select">
 	      <span class="input-label">Tag</span>
 	      <select ng-model="information.tag">
-		    	<option ng-repeat="tag in tags" value="{{tag}}">{{tag}}</option>
+		    	<option ng-repeat="(key, value) in tags" value="{{key}}">{{value}}</option>
 				</select>
 			</label>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Update</button>

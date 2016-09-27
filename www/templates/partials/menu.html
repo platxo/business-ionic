@@ -3,7 +3,7 @@
 
     <ion-list>
       <ion-item ui-sref="profile" ng-click="popover.hide()">
-        <i class="icon ion-person"></i>
+        <i class="icon ion-android-person"></i>
         {{currentOwner.user}}
       </ion-item>
       <ion-item ui-sref="business-list" ng-click="popover.hide()">
@@ -13,8 +13,16 @@
           {{currentBusiness.name}}
         </p>
       </ion-item>
+      <ion-item ui-sref="employee-list" ng-click="popover.hide()">
+        <i class="icon ion-android-people"></i>
+        Employees
+      </ion-item>
+      <ion-item ui-sref="business-settings" ng-click="popover.hide()">
+        <i class="icon ion-android-settings"></i>
+        Settings
+      </ion-item>
       <logout-Directive></logout-Directive>
-    </ion-list>
+      </ion-list>
 
   </ion-content>
 </ion-popover-view>

@@ -5,28 +5,49 @@ dataControllers.controller('dataController', [
   '$rootScope',
   '$stateParams',
   '$state',
+  '$ionicLoading',
+  '$timeout',
   '$ionicModal',
   'dataService',
+  'tagsService',
   function(
     $scope,
     $rootScope,
     $stateParams,
     $state,
+    $ionicLoading,
+    $timeout,
     $ionicModal,
-    dataService
+    dataService,
+    tagsService
   )
   {
-	  $scope.datas = dataService.list();
+    $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+    });
+    
+	  $scope.datas = dataService.list()
+      .$promise
+        .then(function (res) {
+          $scope.datas = res
+          $ionicLoading.hide();
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          });
+          $timeout(function() {
+             $ionicLoading.hide();
+          }, 2000);
+        })
+
 	  $scope.data = dataService.detail({id: $stateParams.id});
-    $scope.tags = {
-      'Grey': 'grey',
-      'Red':'red',
-      'Yellow': 'yellow',
-      'Blue': 'blue',
-      'Orange': 'orange',
-      'Green': 'green',
-      'Purple': 'purple'
-    };
+    $scope.tags = tagsService.get()
 
 	  $scope.create = function () {
       $scope.data.business = $rootScope.currentBusiness.id;
@@ -58,7 +79,7 @@ dataControllers.controller('dataController', [
     }
 
 	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.datas = dataService.list();
+	    $scope.datas = dataService.list()
 	  })
 
 	}

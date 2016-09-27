@@ -1,10 +1,16 @@
 <ion-modal-view>
-  <ion-header-bar class="bar-balanced">
+
+  <ion-header-bar align-title="left" class="bar-balanced">
+    <div class="buttons">
+      <button class="button icon ion-android-checkbox" ng-click="informationCloseModal()"></button>
+    </div>
     <h1 class="title">Select Information</h1>
-    <button class="button icon ion-android-checkbox" ng-click="informationCloseModal()"></button>
-    <button class="button icon ion-android-cancel" ng-click="informationCloseModal()"></button>
+    <div class="buttons">
+      <button class="button icon ion-android-cancel" ng-click="informationCloseModal()"></button>
+    </div>
   </ion-header-bar>
-  <ion-content>
+
+  <ion-content class="has-header">
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
       <input ng-model="search.value" type="search" placeholder="Search" ng-change="scrollTop()">

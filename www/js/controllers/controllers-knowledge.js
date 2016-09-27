@@ -5,35 +5,56 @@ knowledgeControllers.controller('knowledgeController', [
   '$rootScope',
   '$stateParams',
   '$state',
+  '$ionicLoading',
+  '$timeout',
   '$ionicModal',
   'knowledgeService',
   'informationService',
+  'tagsService',
   function(
     $scope,
     $rootScope,
     $stateParams,
     $state,
+    $ionicLoading,
+    $timeout,
     $ionicModal,
     knowledgeService,
-    informationService
+    informationService,
+    tagsService
   )
   {
-	  $scope.knowledges = knowledgeService.list();
+    $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+    });
+
+	  $scope.knowledges = knowledgeService.list()
+      .$promise
+        .then(function (res) {
+          $scope.knowledges = res
+          $ionicLoading.hide();
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          });
+          $timeout(function() {
+             $ionicLoading.hide();
+          }, 2000);
+        })
+
 	  $scope.knowledge = knowledgeService.detail({id: $stateParams.id});
     $scope.informations = informationService.list();
-    $scope.tags = {
-      'Grey': 'grey',
-      'Red':'red',
-      'Yellow': 'yellow',
-      'Blue': 'blue',
-      'Orange': 'orange',
-      'Green': 'green',
-      'Purple': 'purple'
-    };
+    $scope.tags = tagsService.get()
 
 	  $scope.create = function () {
       $scope.knowledge.business = $rootScope.currentBusiness.id;
-      $scope.knowledge.owner = $rootScope.currentOwner;
+      $scope.knowledge.owner = $rootScope.currentOwner.id;
 	    knowledgeService.create($scope.knowledge);
 	    $scope.knowledges = knowledgeService.list();
 	    $state.go('tab.knowledge-list');
@@ -69,7 +90,7 @@ knowledgeControllers.controller('knowledgeController', [
     $ionicModal.fromTemplateUrl('templates/knowledge/select-information.html', {
       scope: $scope,
       controller: 'knowledgeCotroller',
-      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+      animation: 'slide-in-up',
       focusFirstInput: true
     }).then(function(modal) {
       $scope.informationModal = modal;
@@ -80,18 +101,6 @@ knowledgeControllers.controller('knowledgeController', [
     $scope.informationCloseModal = function() {
       $scope.informationModal.hide();
     };
-    // Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.informationModal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('informationModal.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('informationModal.removed', function() {
-      // Execute action
-    });
 
     $scope.$on('$stateChangeSuccess', function() {
 	    $scope.knowledges = knowledgeService.list();

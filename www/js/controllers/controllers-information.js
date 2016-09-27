@@ -5,35 +5,56 @@ informationControllers.controller('informationController', [
   '$rootScope',
   '$stateParams',
   '$state',
+  '$ionicLoading',
+  '$timeout',
   '$ionicModal',
   'informationService',
   'dataService',
+  'tagsService',
   function(
     $scope,
     $rootScope,
     $stateParams,
     $state,
+    $ionicLoading,
+    $timeout,
     $ionicModal,
     informationService,
-    dataService
+    dataService,
+    tagsService
   )
   {
-	  $scope.informations = informationService.list();
+    $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+    });
+
+	  $scope.informations = informationService.list()
+      .$promise
+        .then(function (res) {
+          $scope.informations = res
+          $ionicLoading.hide();
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          });
+          $timeout(function() {
+             $ionicLoading.hide();
+          }, 2000);
+        })
+
 	  $scope.information = informationService.detail({id: $stateParams.id});
     $scope.datas = dataService.list();
-    $scope.tags = {
-      'Grey': 'grey',
-      'Red':'red',
-      'Yellow': 'yellow',
-      'Blue': 'blue',
-      'Orange': 'orange',
-      'Green': 'green',
-      'Purple': 'purple'
-    };
+    $scope.tags = tagsService.get()
 
 	  $scope.create = function () {
       $scope.information.business = $rootScope.currentBusiness.id;
-      $scope.information.owner = $rootScope.currentOwner;
+      $scope.information.owner = $rootScope.currentOwner.id;
 	    informationService.create($scope.information);
 	    $scope.informations = informationService.list();
 	    $state.go('tab.information-list');
@@ -69,7 +90,7 @@ informationControllers.controller('informationController', [
     $ionicModal.fromTemplateUrl('templates/information/select-data.html', {
       scope: $scope,
       controller: 'informationCotroller',
-      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+      animation: 'slide-in-up',
       focusFirstInput: true
     }).then(function(modal) {
       $scope.dataModal = modal;
@@ -80,18 +101,6 @@ informationControllers.controller('informationController', [
     $scope.dataCloseModal = function() {
       $scope.dataModal.hide();
     };
-    // Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.dataModal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('dataModal.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('dataModal.removed', function() {
-      // Execute action
-    });
 
     $scope.$on('$stateChangeSuccess', function() {
       $scope.informations = informationService.list();

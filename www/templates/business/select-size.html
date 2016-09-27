@@ -2,26 +2,25 @@
 
   <ion-header-bar align-title="left" class="bar-balanced">
     <div class="buttons">
-      <button class="button icon ion-android-checkbox" ng-click="dataCloseModal()"></button>
+      <button class="button icon ion-android-checkbox" ng-click="sizeCloseModal()"></button>
     </div>
-    <h1 class="title">Select Data</h1>
+    <h1 class="title">Select Size</h1>
     <div class="buttons">
-      <button class="button icon ion-android-cancel" ng-click="dataCloseModal()"></button>
+      <button class="button icon ion-android-cancel" ng-click="sizeCloseModal()"></button>
     </div>
   </ion-header-bar>
 
-  <ion-content class="has-header">
+  <ion-content ng-controller="businessController">
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
       <input ng-model="search.value" type="search" placeholder="Search" ng-change="scrollTop()">
       <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
      </button>
     </label>
-    <ion-checkbox
-      ng-repeat="data in datas | orderBy:'name' | filter:search.value | filter: currentBusiness.id"
-      ng-value="{{'data.id'}}"
-      ng-click="selectData(data)"
-      >{{data.name}}
-    </ion-checkbox>
+    <ion-radio
+      ng-repeat="(key, value) in sizes | filterObject:search.value"
+      ng-click="selectSize(key, value)"
+      >{{value}}
+    </ion-radio>
   </ion-content>
 </ion-modal-view>

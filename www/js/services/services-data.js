@@ -10,3 +10,10 @@ dataServices.service('dataService', [ '$resource', '$rootScope', function ($reso
     delete: { method: 'DELETE', headers: $rootScope.headersJWT }
   });
 }]);
+
+dataServices.service('tagsService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+  var tagsUrl = '/api/parametrizations/tag_choices/';
+  return $resource($rootScope.version + $rootScope.baseUrl + tagsUrl +':id/?format=json', {id: '@id'},{
+    get : { method: 'GET', headers: $rootScope.headersJWT },
+  });
+}]);

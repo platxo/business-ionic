@@ -5,29 +5,15 @@
         <span class="input-label">Name</span>
         <input ng-model="bs.name" type="text" placeholder="" value="">
       </label>
-			<label class="item item-input">
-        <span class="input-label">Country</span>
-        <input ng-model="bs.country" type="text" placeholder="" value="">
-      </label>
+			<select-Size-Directive></select-Size-Directive>
+			<select-Category-Directive></select-Category-Directive>
+			<select-Type-Directive></select-Type-Directive>
+			<select-Currency-Directive></select-Currency-Directive>
+			<select-Crm-Points-Directive></select-Crm-Points-Directive>
+			<select-Country-Directive></select-Country-Directive>
 			<label class="item item-input">
         <span class="input-label">City</span>
         <input ng-model="bs.city" type="text" placeholder="" value="">
-      </label>
-			<label class="item item-input">
-        <span class="input-label">Currency</span>
-        <input ng-model="bs.currency" type="text" placeholder="" value="">
-      </label>
-			<label class="item item-input">
-        <span class="input-label">CRM points</span>
-        <input ng-model="bs.crm_points" type="text" placeholder="" value="">
-      </label>
-			<label class="item item-input">
-        <span class="input-label">Category</span>
-        <input ng-model="bs.category" type="text" placeholder="" value="">
-      </label>
-			<label class="item item-input">
-        <span class="input-label">Type</span>
-        <input ng-model="bs.type" type="text" placeholder="" value="">
       </label>
 			<label class="item item-input">
         <span class="input-label">Email</span>
@@ -35,22 +21,14 @@
       </label>
 			<label class="item item-input">
         <span class="input-label">Website</span>
-        <input ng-model="bs.email" type="text" placeholder="" value="">
+        <input ng-model="bs.website" type="url" placeholder="http://" value="">
       </label>
 			<label class="item item-input">
         <span class="input-label">Telephone</span>
-        <input ng-model="bs.email" type="tel" placeholder="" value="">
-      </label>
-			<label class="item item-input item-select" ng-click="addEmployeeOpenModal()">
-        <span class="input-label">Add Employees</span>
-					<input type="text" value="{{business.employees}}">
-      </label>
-			<label class="item item-input item-select" ng-click="removeEmployeeOpenModal()">
-        <span class="input-label">Remove Employees</span>
-					<input type="text" value="{{business.employees}}">
+        <input ng-model="bs.telephone" type="tel" placeholder="" value="">
       </label>
 			<button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
 			<button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
-		</ion-content>
-    </form>
+		</form>
+	</ion-content>
 </ion-view>

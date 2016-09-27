@@ -9,6 +9,10 @@ var business = angular.module('business', [
   'businessServices',
   'businessRoutes',
   'businessFilters',
+  'businessDirectives',
+  'employeeControllers',
+  'employeeServices',
+  'employeeRoutes',
   'dataControllers',
   'dataServices',
   'dataRoutes',
@@ -54,5 +58,8 @@ business.run(function($ionicPlatform, $rootScope, $state) {
 })
 
 // business.config(['$httpProvider', function($httpProvider) {
-//     $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+//     httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+//     $httpProvider.defaults.headers.patch = {
+//     'Content-Type': 'application/json;charset=utf-8'
+//   };
 // }]);

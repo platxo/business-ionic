@@ -1,8 +1,7 @@
 <ion-modal-view>
   <ion-header-bar class="bar-balanced">
-    <h1 class="title">Remove employee</h1>
-    <button class="button icon ion-android-checkbox" ng-click="removeEmployeeCloseModal()"></button>
-    <button class="button icon ion-android-cancel" ng-click="removeEmployeeCloseModal()"></button>
+    <h1 class="title">Employee Add</h1>
+    <button class="button icon ion-android-cancel" ng-click="addEmployeeCloseModal()"></button>
   </ion-header-bar>
   <ion-content>
     <label class="item item-input">
@@ -13,7 +12,8 @@
     </label>
     <ion-radio
       ng-repeat="employee in employees | orderBy:'name' | filter:search.value"
-      ng-click="removeEmployee(employee)"
+      ng-disabled="employed(employee)"
+      ng-click="addEmployee(employee)"
       >{{employee.user}}
     </ion-radio>
   </ion-content>
