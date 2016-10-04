@@ -1,0 +1,16 @@
+<ion-view view-title="CRM Points">
+
+  <ion-nav-buttons side="right">
+    <button ui-sref="settings-list" class="button icon ion-arrow-left-c"></button>
+  </ion-nav-buttons>
+
+  <ion-content padding="true">
+    <ion-radio
+      ng-value="key"
+      ng-model="crm_points"
+      ng-repeat="(key, value) in crmPoints | filterObject:search.value"
+      ng-click="selectCrmPoints(key, value)"
+      >{{value}}
+    </ion-radio>
+  </ion-content>
+</ion-view>

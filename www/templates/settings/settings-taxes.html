@@ -1,0 +1,21 @@
+<ion-view view-title="Sales Taxes">
+
+  <ion-nav-buttons side="left">
+		<button ng-click="taxCreate()" class="button icon ion-android-add-circle"></button>
+	</ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button ui-sref="settings-list" class="button icon ion-arrow-left-c"></button>
+  </ion-nav-buttons>
+
+	<ion-content padding="true">
+    <ion-list>
+      <ion-item ng-repeat="tax in taxes" class="item-button-right">
+       <h2><span>Name: </span>{{tax.name}} |<span> Rate: </span> {{tax.rate}}%</h2>
+       <div class="buttons">
+         <button ng-click="taxUpdate(tax)" class="button button-stable button-clear icon-center ion-edit"></button>
+         <button ng-click="taxDelete(tax)" class="button button-dark button-clear icon-center ion-android-delete"></button>
+      </div>
+      </ion-item>
+    </ion-list>
+	</ion-content>
