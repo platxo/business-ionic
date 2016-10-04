@@ -11,6 +11,32 @@
 		    	<option ng-repeat="(key, value) in tags" value="{{key}}">{{value}}</option>
 				</select>
 			</label>
+			<label class="item item-input item-select">
+	      <span class="input-label">App</span>
+	      <select ng-model="app" ng-change="selectApp(app)">
+		    	<option ng-repeat="app in apps" value="{{app}}">{{app}}</option>
+				</select>
+			</label>
+			<label class="item item-input item-select" ng-if="showSelectModel">
+	      <span class="input-label">Model</span>
+	      <select ng-model="model" ng-change="selectModel(model)">
+		    	<option ng-repeat="model in models" value="{{model}}">{{model}}</option>
+				</select>
+			</label>
+			<div ng-if="showSelectField">
+				<ion-checkbox 
+					ng-repeat="field in fields | orderBy:'name' | filter:search.value"
+					ng-value="field.id"
+					ng-click="selectField(field)">
+					{{field}}
+				</ion-checkbox>
+			</div>
+			<!-- <label class="item item-input item-select" ng-if="showSelectField">
+	      <span class="input-label">Fields</span>
+	      <select ng-model="data.model" ng-change="selectModel(data.model)">
+		    	<option ng-repeat="model in models" value="{{model}}">{{model}}</option>
+				</select>
+			</label> -->
 			<button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
 			<button type="button"  ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
 		</ion-content>
