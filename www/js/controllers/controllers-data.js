@@ -9,7 +9,7 @@ dataControllers.controller('dataController', [
   '$ionicModal',
   'dataService',
   'tagsService',
-  'appService',
+  'buildQueryService',
   function(
     $scope,
     $rootScope,
@@ -19,7 +19,7 @@ dataControllers.controller('dataController', [
     $ionicModal,
     dataService,
     tagsService,
-    appService
+    buildQueryService
   )
   {
 
@@ -119,7 +119,7 @@ dataControllers.controller('dataController', [
           })
 	  })
 
-    appService.get()
+    buildQueryService.get()
       .$promise
         .then(function (res) {
           $scope.allQuery = res;

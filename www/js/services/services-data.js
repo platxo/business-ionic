@@ -18,7 +18,7 @@ dataServices.service('tagsService', [ '$resource', '$rootScope', function ($reso
   });
 }]);
 
-dataServices.service('appService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+dataServices.service('buildQueryService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   var appUrl = '/api/analytics/';
   return $resource($rootScope.version + $rootScope.baseUrl + appUrl +':id/?format=json', {id: '@id'},{
     get : { method: 'GET', headers: $rootScope.headersJWT },
