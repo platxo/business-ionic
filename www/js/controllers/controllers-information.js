@@ -6,7 +6,6 @@ informationControllers.controller('informationController', [
   '$stateParams',
   '$state',
   '$ionicLoading',
-  '$timeout',
   '$ionicModal',
   'informationService',
   'dataService',
@@ -17,7 +16,6 @@ informationControllers.controller('informationController', [
     $stateParams,
     $state,
     $ionicLoading,
-    $timeout,
     $ionicModal,
     informationService,
     dataService,
@@ -25,51 +23,76 @@ informationControllers.controller('informationController', [
   )
   {
     $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
+      template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: true
     });
 
-	  $scope.informations = informationService.list()
+	  informationService.list()
       .$promise
         .then(function (res) {
+          $ionicLoading.hide();
           $scope.informations = res
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          })
+        })
+
+    $scope.information = informationService.detail({id: $stateParams.id})
+
+    dataService.list()
+      .$promise
+        .then(function (res) {
+          $scope.datas = res
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
             template: 'Network Error',
             scope: $scope
-          });
-          $timeout(function() {
-             $ionicLoading.hide();
-          }, 2000);
+          })
         })
 
-	  $scope.information = informationService.detail({id: $stateParams.id});
-    $scope.datas = dataService.list();
-    $scope.tags = tagsService.get()
+    tagsService.get()
+      .$promise
+        .then(function (res) {
+          $scope.tags = res
+        }, function (err) {
+
+        })
 
 	  $scope.create = function () {
       $scope.information.business = $rootScope.currentBusiness.id;
       $scope.information.owner = $rootScope.currentOwner.id;
-	    informationService.create($scope.information);
-	    $scope.informations = informationService.list();
-	    $state.go('tab.information-list');
+	    informationService.create($scope.information)
+      .$promise
+        .then(function (res) {
+          $state.go('tab.information-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.update = function () {
-	    informationService.update($scope.information);
-	    $scope.informations = informationService.list();
-	    $state.go('tab.information-list');
+	    informationService.update($scope.information)
+      .$promise
+        .then(function (res) {
+          $state.go('tab.information-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.delete = function () {
-	    informationService.delete($scope.information);
-	    $scope.informations = informationService.list();
-	    $state.go('tab.information-list');
+	    informationService.delete($scope.information)
+      .$promise
+        .then(function (res) {
+          $state.go('tab.information-list');
+        }, function (err) {
+
+        })
 	  }
 
     $scope.information.datas = [];
@@ -103,7 +126,18 @@ informationControllers.controller('informationController', [
     };
 
     $scope.$on('$stateChangeSuccess', function() {
-      $scope.informations = informationService.list();
+      informationService.list()
+      .$promise
+        .then(function (res) {
+          $ionicLoading.hide();
+          $scope.informations = res
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          })
+        })
     })
 
 	}

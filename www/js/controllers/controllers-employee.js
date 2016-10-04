@@ -25,13 +25,11 @@ employeeControllers.controller('employeeController', [
   )
   {
     $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
+      template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: true
     });
-    $scope.employees = employeesService.list()
+
+    employeesService.list()
       .$promise
         .then(function (res) {
           $scope.employees = res
@@ -41,11 +39,9 @@ employeeControllers.controller('employeeController', [
           $ionicLoading.show({
             template: 'Network Error',
             scope: $scope
-          });
-          $timeout(function() {
-             $ionicLoading.hide();
-          }, 2000);
+          })
         })
+
     $scope.employee = employeesService.detail({id: $stateParams.id});
     $scope.bs = businessService.detail({id: $rootScope.currentBusiness.id});
 
@@ -114,6 +110,21 @@ employeeControllers.controller('employeeController', [
     $scope.addEmployeeCloseModal = function() {
       $scope.addEmployeeModal.hide();
     };
+
+    $scope.$on('$stateChangeSuccess', function() {
+      employeesService.list()
+        .$promise
+          .then(function (res) {
+            $scope.employees = res
+            $ionicLoading.hide();
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
+	  })
 
 	}
 ]);

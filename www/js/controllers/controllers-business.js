@@ -7,11 +7,9 @@ businessControllers.controller('businessController', [
   '$state',
   '$location',
   '$ionicLoading',
-  '$timeout',
   'businessService',
   'countriesService',
   'currenciesService',
-  'crmPointsService',
   'sizesService',
   'categoriesService',
   'typesService',
@@ -22,44 +20,36 @@ businessControllers.controller('businessController', [
     $state,
     $location,
     $ionicLoading,
-    $timeout,
     businessService,
     countriesService,
     currenciesService,
-    crmPointsService,
     sizesService,
     categoriesService,
     typesService
   )
   {
     $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
+      template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: true
     });
-	  $scope.business = businessService.list()
+
+	  businessService.list()
     .$promise
       .then(function (res) {
-        $scope.business = res
         $ionicLoading.hide();
+        $scope.business = res
       }, function (err) {
         $ionicLoading.hide();
         $ionicLoading.show({
           template: 'Network Error',
           scope: $scope
-        });
-        $timeout(function() {
-           $ionicLoading.hide();
-        }, 2000);
+        })
       })
 
 	  $scope.bs = businessService.detail({id: $stateParams.id});
     $scope.sizes = sizesService.get();
     $scope.categories = categoriesService.get();
     $scope.types = typesService.get();
-    $scope.crmPoints = crmPointsService.get();
     $scope.countries = countriesService.get();
     $scope.currencies = currenciesService.get()
 
@@ -68,21 +58,33 @@ businessControllers.controller('businessController', [
       $scope.bs.employees = []
       $scope.bs.customers = []
       $scope.bs.suppliers = []
-	    businessService.create($scope.bs);
-	    $scope.business = businessService.list();
-	    $state.go('business-list');
+	    businessService.create($scope.bs)
+      .$promise
+        .then(function (res) {
+          $state.go('business-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.update = function () {
-	    businessService.update($scope.bs);
-	    $scope.business = businessService.list();
-	    $state.go('business-list');
+	    businessService.update($scope.bs)
+      .$promise
+        .then(function (res) {
+          $state.go('business-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.delete = function () {
-	    businessService.delete($scope.bs);
-	    $scope.business = businessService.list();
-	    $state.go('business-list');
+	    businessService.delete($scope.bs)
+      .$promise
+        .then(function (res) {
+          $state.go('business-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.cancel = function () {
@@ -101,7 +103,18 @@ businessControllers.controller('businessController', [
     }
 
     $scope.$on('$stateChangeSuccess', function() {
-	    $scope.business = businessService.list();
+	    businessService.list()
+        .$promise
+          .then(function (res) {
+            $ionicLoading.hide();
+            $scope.business = res
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
 	  })
 
 	}

@@ -13,6 +13,9 @@ var business = angular.module('business', [
   'employeeControllers',
   'employeeServices',
   'employeeRoutes',
+  'settingsControllers',
+  'settingsServices',
+  'settingsRoutes',
   'dataControllers',
   'dataServices',
   'dataRoutes',
@@ -28,7 +31,7 @@ var business = angular.module('business', [
   'menuDirectives'
 ])
 
-business.run(function($ionicPlatform, $rootScope, $state) {
+business.run(function($ionicPlatform, $rootScope) {
   $rootScope.version = 'http://development.';
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
   // $rootScope.version = 'http://localhost';
@@ -38,6 +41,7 @@ business.run(function($ionicPlatform, $rootScope, $state) {
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("bs")) || '';
   $rootScope.currentOwner = $rootScope.currentUser.owner || '';
   $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
+
 
   $ionicPlatform.ready(function() {
 
@@ -59,7 +63,8 @@ business.run(function($ionicPlatform, $rootScope, $state) {
 
 // business.config(['$httpProvider', function($httpProvider) {
 //     httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+//
 //     $httpProvider.defaults.headers.patch = {
 //     'Content-Type': 'application/json;charset=utf-8'
-//   };
+//     };
 // }]);

@@ -6,7 +6,6 @@ dataControllers.controller('dataController', [
   '$stateParams',
   '$state',
   '$ionicLoading',
-  '$timeout',
   '$ionicModal',
   'dataService',
   'tagsService',
@@ -16,57 +15,70 @@ dataControllers.controller('dataController', [
     $stateParams,
     $state,
     $ionicLoading,
-    $timeout,
     $ionicModal,
     dataService,
     tagsService
   )
   {
     $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
+    template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+    noBackdrop: true
     });
-    
-	  $scope.datas = dataService.list()
+
+	  dataService.list()
       .$promise
         .then(function (res) {
-          $scope.datas = res
           $ionicLoading.hide();
+          $scope.datas = res
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
             template: 'Network Error',
             scope: $scope
-          });
-          $timeout(function() {
-             $ionicLoading.hide();
-          }, 2000);
+          })
         })
 
 	  $scope.data = dataService.detail({id: $stateParams.id});
-    $scope.tags = tagsService.get()
+
+    tagsService.get()
+    .$promise
+      .then(function (res) {
+        $ionicLoading.hide();
+        $scope.tags = res
+      }, function (err) {
+
+      })
 
 	  $scope.create = function () {
       $scope.data.business = $rootScope.currentBusiness.id;
       $scope.data.owner = $rootScope.currentOwner.id;
-	    dataService.create($scope.data);
-	    $scope.datas = dataService.list();
-	    $state.go('tab.data-list');
+	    dataService.create($scope.data)
+      .$promise
+        .then(function (res) {
+      	  $state.go('tab.data-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.update = function () {
-	    dataService.update($scope.data);
-	    $scope.datas = dataService.list();
-	    $state.go('tab.data-list');
+	    dataService.update($scope.data)
+        .$promise
+          .then(function (res) {
+            $state.go('tab.data-list');
+          }, function (err) {
+
+          })
 	  }
 
 	  $scope.delete = function () {
-	    dataService.delete($scope.data);
-	    $scope.datas = dataService.list();
-	    $state.go('tab.data-list');
+	    dataService.delete($scope.data)
+        .$promise
+          .then(function (res) {
+            $state.go('tab.data-list');
+          }, function (err) {
+
+          })
 	  }
 
 	  $scope.cancel = function () {
@@ -74,12 +86,30 @@ dataControllers.controller('dataController', [
 	  }
 
     $scope.refresh = function () {
-      $scope.datas = dataService.list();
-      $scope.$broadcast('scroll.refreshComplete');
+      dataService.list()
+        .$promise
+          .then(function (res) {
+            $ionicLoading.hide();
+            $scope.datas = res
+            $scope.$broadcast('scroll.refreshComplete');
+          }, function (err) {
+
+          })
     }
 
 	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.datas = dataService.list()
+      dataService.list()
+        .$promise
+          .then(function (res) {
+            $ionicLoading.hide();
+            $scope.datas = res
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
 	  })
 
 	}

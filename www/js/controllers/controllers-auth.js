@@ -45,12 +45,14 @@ authControllers.controller('loginController', [
   '$location',
   '$rootScope',
   'loginService',
+  'signupService',
   function(
     $scope,
     $state,
     $location,
     $rootScope,
-    loginService
+    loginService,
+    signupService
   )
   {
     $scope.user = {}
@@ -60,6 +62,10 @@ authControllers.controller('loginController', [
       .$promise
         .then( function (res) {
           $scope.user = {}
+          if (!res.user.is_owner) {
+            res.user.is_owner = true;
+            signupService.update(res.user)
+          }
           window.localStorage.setItem('token', JSON.stringify(res.token));
           window.localStorage.setItem('user', JSON.stringify(res.user));
           $rootScope.headersJWT = {'Authorization': 'JWT ' + res.token};

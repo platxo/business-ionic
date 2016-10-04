@@ -1,4 +1,12 @@
 <ion-view view-title="Information Detail">
+
+	<ion-nav-buttons side="right">
+		<button ui-sref="tab.information-list" class="button icon ion-home"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="left">
+		<button ui-sref="tab.information-update({id: information.id})" class="button icon ion-edit"></button>
+	</ion-nav-buttons>
+
 	<ion-content padding="true">
     <div class="list card">
       <div class="item item-divider">{{information.name}}</div>

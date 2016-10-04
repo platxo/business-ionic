@@ -27,11 +27,6 @@ businessRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
     templateUrl: 'templates/business/business-delete.html',
     controller: 'businessController'
   })
-  .state('business-settings', {
-    url: '/business-settings',
-    templateUrl: 'templates/business/business-settings.html',
-    controller: 'businessController'
-  })
 
   $urlRouterProvider.otherwise('/login');
 

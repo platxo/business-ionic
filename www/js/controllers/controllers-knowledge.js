@@ -6,7 +6,6 @@ knowledgeControllers.controller('knowledgeController', [
   '$stateParams',
   '$state',
   '$ionicLoading',
-  '$timeout',
   '$ionicModal',
   'knowledgeService',
   'informationService',
@@ -17,7 +16,6 @@ knowledgeControllers.controller('knowledgeController', [
     $stateParams,
     $state,
     $ionicLoading,
-    $timeout,
     $ionicModal,
     knowledgeService,
     informationService,
@@ -25,57 +23,78 @@ knowledgeControllers.controller('knowledgeController', [
   )
   {
     $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
+      template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: true
     });
 
-	  $scope.knowledges = knowledgeService.list()
+	  knowledgeService.list()
       .$promise
         .then(function (res) {
-          $scope.knowledges = res
           $ionicLoading.hide();
+          $scope.knowledges = res
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
             template: 'Network Error',
             scope: $scope
-          });
-          $timeout(function() {
-             $ionicLoading.hide();
-          }, 2000);
+          })
         })
 
 	  $scope.knowledge = knowledgeService.detail({id: $stateParams.id});
-    $scope.informations = informationService.list();
-    $scope.tags = tagsService.get()
+
+    informationService.list()
+      .$promise
+        .then(function (res) {
+          $ionicLoading.hide();
+          $scope.informations = res
+        }, function (err) {
+
+        })
+
+    tagsService.get()
+      .$promise
+        .then(function (res) {
+          $scope.tags = res
+        }, function (err) {
+
+        })
 
 	  $scope.create = function () {
       $scope.knowledge.business = $rootScope.currentBusiness.id;
       $scope.knowledge.owner = $rootScope.currentOwner.id;
-	    knowledgeService.create($scope.knowledge);
-	    $scope.knowledges = knowledgeService.list();
-	    $state.go('tab.knowledge-list');
+	    knowledgeService.create($scope.knowledge)
+      .$promise
+        .then(function (res) {
+          $state.go('tab.knowledge-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.update = function () {
-	    knowledgeService.update($scope.knowledge);
-	    $scope.knowledges = knowledgeService.list();
-	    $state.go('tab.knowledge-list');
+	    knowledgeService.update($scope.knowledge)
+      .$promise
+        .then(function (res) {
+          $state.go('tab.knowledge-list');
+        }, function (err) {
+
+        })
 	  }
 
 	  $scope.delete = function () {
-	    knowledgeService.delete($scope.knowledge);
-	    $scope.knowledges = knowledgeService.list();
-	    $state.go('tab.knowledge-list');
+	    knowledgeService.delete($scope.knowledge)
+      .$promise
+        .then(function (res) {
+          $state.go('tab.knowledge-list');
+        }, function (err) {
+
+        })
 	  }
 
     $scope.knowledge.informations = [];
     $scope.selectInformation = function(information) {
       $scope.knowledge.information = information.name;
-      $scope.knowledge.informations.push(information.id);
+      $scope.knowledge.informations.push(information.id)
     };
 
 	  $scope.cancel = function () {
@@ -103,7 +122,18 @@ knowledgeControllers.controller('knowledgeController', [
     };
 
     $scope.$on('$stateChangeSuccess', function() {
-	    $scope.knowledges = knowledgeService.list();
+      knowledgeService.list()
+        .$promise
+          .then(function (res) {
+            $ionicLoading.hide();
+            $scope.knowledges = res
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
 	  })
 
 	}

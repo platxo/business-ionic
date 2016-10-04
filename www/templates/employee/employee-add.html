@@ -14,7 +14,7 @@
       ng-repeat="employee in employees | orderBy:'name' | filter:search.value"
       ng-disabled="employed(employee)"
       ng-click="addEmployee(employee)"
-      >{{employee.user}}
+      >{{employee.extra.employee_name}}
     </ion-radio>
   </ion-content>
 </ion-modal-view>

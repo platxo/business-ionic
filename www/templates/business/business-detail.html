@@ -1,6 +1,9 @@
 <ion-view view-title="Business Detail">
-	<ion-nav-buttons side="left">
+	<ion-nav-buttons side="right">
 		<button ui-sref="business-list" class="button icon ion-home"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="left">
+		<button ui-sref="business-update({id: bs.id})" class="button icon ion-edit"></button>
 	</ion-nav-buttons>
 	<ion-content padding="true">
     <div class="list card">

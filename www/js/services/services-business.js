@@ -32,13 +32,6 @@ businessServices.service('currenciesService', [ '$resource', '$rootScope', funct
   });
 }]);
 
-businessServices.service('crmPointsService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var crmPointsUrl = '/api/parametrizations/crm_points_choices/';
-  return $resource($rootScope.version + $rootScope.baseUrl + crmPointsUrl +'?format=json', {},{
-    get : { method: 'GET', headers: $rootScope.headersJWT },
-  });
-}]);
-
 businessServices.service('categoriesService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   var categoriesUrl = '/api/parametrizations/category_choices/';
   return $resource($rootScope.version + $rootScope.baseUrl + categoriesUrl +'?format=json', {},{

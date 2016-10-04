@@ -1,9 +1,10 @@
 var authServices = angular.module('authServices', ['ngResource']);
 
 authServices.service('signupService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var signupUrl = '/api/users';
-  return $resource($rootScope.version + $rootScope.baseUrl + signupUrl +':id/?format=json', {},{
-    signup: { method: 'POST' }
+  var signupUrl = '/api/users/';
+  return $resource($rootScope.version + $rootScope.baseUrl + signupUrl +':id/?format=json', {id: '@id'},{
+    signup: { method: 'POST' },
+    update: { method: 'PUT', headers: $rootScope.headersJWT }
   });
 }]);
 
@@ -15,14 +16,14 @@ authServices.service('loginService', [ '$resource', '$rootScope', function ($res
 }]);
 
 authServices.service('forgotPasswordService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var forgotPasswordUrl = '/api/forgot-password';
+  var forgotPasswordUrl = '/api/forgot-password/';
   return $resource($rootScope.version + $rootScope.baseUrl + forgotPasswordUrl +'?format=json', {},{
     send: { method: 'POST' }
   });
 }]);
 
 authServices.service('validateService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var validateUrl = '/api/forgot-password/validate';
+  var validateUrl = '/api/forgot-password/validate/';
   return $resource($rootScope.version + $rootScope.baseUrl + validateUrl +'?format=json', {},{
     send: { method: 'POST' }
   });
