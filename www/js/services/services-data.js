@@ -20,7 +20,10 @@ dataServices.service('tagsService', [ '$resource', '$rootScope', function ($reso
 
 dataServices.service('analyticsService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   var anlalyticsUrl = '/api/analytics/';
-  return $resource($rootScope.version + $rootScope.baseUrl + anlalyticsUrl +'?format=json', {},{
-    get : { method: 'GET', headers: $rootScope.headersJWT },
+  return $resource($rootScope.version + $rootScope.baseUrl + anlalyticsUrl +'?format=json', {id: '@id'},{
+    get : { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
+    get2 : { method: 'GET', headers: $rootScope.headersJWT },
   });
 }]);
+
+

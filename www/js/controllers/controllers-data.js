@@ -44,13 +44,24 @@ dataControllers.controller('dataController', [
         })
 
 
-	  $scope.data = dataService.detail({id: $stateParams.id});
+	  // $scope.data = dataService.detail({id: $stateParams.id});
 
-    $scope.dataAnalytic = analyticsService.get({
-      app:$scope.appSelected,
-      model:'',
-      fields:'',
-    });
+
+    $scope.dataAppAnalytic = function (data) {
+      $rootScope.data = data
+      analyticsService.get({
+        "app": data.data_app,
+        "model": data.data_model,
+        "fields[]": data.data_fields,
+      })
+        .$promise
+          .then(function(res) {
+            $rootScope.dataAnalytic = res
+            $state.go('tab.data-detail', {'id': data.id});
+          }, function(error) {
+            debugger
+          })
+    }
 
     tagsService.get()
     .$promise
@@ -64,6 +75,9 @@ dataControllers.controller('dataController', [
 	  $scope.create = function () {
       $scope.urlBuild($scope.appSelected, $scope.modelSelected, $scope.fieldsSelected)
 
+      $scope.data.data_app = $scope.appSelected
+      $scope.data.data_model = $scope.modelSelected
+      $scope.data.data_fields = $scope.fieldsSelected
       $scope.data.business = $rootScope.currentBusiness.id;
       $scope.data.owner = $rootScope.currentOwner.id;
 	    dataService.create($scope.data)
@@ -126,7 +140,7 @@ dataControllers.controller('dataController', [
           })
 	  })
 
-    analyticsService.get()
+    analyticsService.get2()
       .$promise
         .then(function (res) {
           $scope.allQuery = res;

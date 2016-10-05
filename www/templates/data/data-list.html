@@ -17,7 +17,7 @@
         <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
        </button>
       </label>
-			<ion-item ui-sref="tab.data-detail({ id: data.id })" ng-repeat="data in datas | orderBy:'tag' | filter: search.value | filter: currentBusiness.id" class="item item-button-right item-avatar-left">
+			<ion-item ng-click="dataAppAnalytic(data)" ng-repeat="data in datas | orderBy:'tag' | filter: search.value | filter: currentBusiness.id" class="item item-button-right item-avatar-left">
 				<img ng-src="img/tags/{{ data.tag }}.png">
 				<h2>{{ data.name }}</h2>
 				<div class="buttons">
