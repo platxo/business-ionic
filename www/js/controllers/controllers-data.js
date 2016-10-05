@@ -22,7 +22,7 @@ dataControllers.controller('dataController', [
     analyticsService
   )
   {
-
+    $scope.data = {}
     $scope.fieldsSelected = []
 
     $ionicLoading.show({
@@ -42,9 +42,6 @@ dataControllers.controller('dataController', [
             scope: $scope
           })
         })
-
-
-	  // $scope.data = dataService.detail({id: $stateParams.id});
 
 
     $scope.dataAppAnalytic = function (data) {
@@ -73,8 +70,6 @@ dataControllers.controller('dataController', [
       })
 
 	  $scope.create = function () {
-      $scope.urlBuild($scope.appSelected, $scope.modelSelected, $scope.fieldsSelected)
-
       $scope.data.data_app = $scope.appSelected
       $scope.data.data_model = $scope.modelSelected
       $scope.data.data_fields = $scope.fieldsSelected
@@ -169,17 +164,6 @@ dataControllers.controller('dataController', [
     $scope.selectField = function (field) {
       $scope.fieldsSelected.push(field)
     }
-
-    $scope.urlBuild = function (app,model,fields) {
-      $scope.data.data_url = 'http://development.platxo-bi.appspot.com/api/analytics/?app=' + app + '&model=' + model
-      for(x in fields) {
-        $scope.data.data_url += '&fields[]=' + fields[x]
-      }
-      console.log($scope.data.data_url)
-      // http://localhost:8080/api/analytics/?app=sales&model=Sale&fields[]=products&fields[]=total
-
-    }
-
 
 	}
 ]);
