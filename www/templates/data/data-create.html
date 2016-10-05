@@ -24,7 +24,7 @@
 				</select>
 			</label>
 			<div ng-if="showSelectField">
-				<ion-checkbox 
+				<ion-checkbox
 					ng-repeat="field in fields | orderBy:'name' | filter:search.value"
 					ng-value="field.id"
 					ng-click="selectField(field)">

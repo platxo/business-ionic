@@ -9,7 +9,7 @@ dataControllers.controller('dataController', [
   '$ionicModal',
   'dataService',
   'tagsService',
-  'appService',
+  'analyticsService',
   function(
     $scope,
     $rootScope,
@@ -19,7 +19,7 @@ dataControllers.controller('dataController', [
     $ionicModal,
     dataService,
     tagsService,
-    appService
+    analyticsService
   )
   {
 
@@ -43,7 +43,14 @@ dataControllers.controller('dataController', [
           })
         })
 
+
 	  $scope.data = dataService.detail({id: $stateParams.id});
+
+    $scope.dataAnalytic = analyticsService.get({
+      app:$scope.appSelected,
+      model:'',
+      fields:'',
+    });
 
     tagsService.get()
     .$promise
@@ -119,7 +126,7 @@ dataControllers.controller('dataController', [
           })
 	  })
 
-    appService.get()
+    analyticsService.get()
       .$promise
         .then(function (res) {
           $scope.allQuery = res;
@@ -130,7 +137,7 @@ dataControllers.controller('dataController', [
 
           console.log($scope.allQuery)
         }, function (error) {
-          debugger
+
         })
 
     $scope.selectApp = function (app) {

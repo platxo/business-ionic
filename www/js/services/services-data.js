@@ -18,9 +18,9 @@ dataServices.service('tagsService', [ '$resource', '$rootScope', function ($reso
   });
 }]);
 
-dataServices.service('appService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var appUrl = '/api/analytics/';
-  return $resource($rootScope.version + $rootScope.baseUrl + appUrl +':id/?format=json', {id: '@id'},{
+dataServices.service('analyticsService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+  var anlalyticsUrl = '/api/analytics/';
+  return $resource($rootScope.version + $rootScope.baseUrl + anlalyticsUrl +'?format=json', {},{
     get : { method: 'GET', headers: $rootScope.headersJWT },
   });
 }]);
