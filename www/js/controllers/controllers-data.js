@@ -23,6 +23,7 @@ dataControllers.controller('dataController', [
   )
   {
     $scope.data = {}
+    $scope.fieldsFilterSelected = []
     $scope.fieldsSelected = []
 
     $ionicLoading.show({
@@ -162,7 +163,18 @@ dataControllers.controller('dataController', [
     }
 
     $scope.selectField = function (field) {
+      // debugger
       $scope.fieldsSelected.push(field)
+    }
+
+    $scope.selectFieldFilter = function (field) {
+      // debugger
+      $scope.fieldsFilterSelected.push(field)
+    }
+
+    $scope.selectQueryType = function (queryType) {
+      // debugger
+      $scope.queryTypeSelected = queryType
     }
 
 	}
