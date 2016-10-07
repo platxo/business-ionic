@@ -1,6 +1,16 @@
 <ion-view view-title="Data Create">
 	<ion-content padding="true">
 		<form ng-submit="create()" class="list">
+
+			<label class="item item-input item-select">
+	      <span class="input-label">Query Type</span>
+	      <select ng-model="data.query_type" ng-change="selectQueryType(data.query_type)">
+		    	<option value="All">All</option>
+		    	<option value="Filter">Filter</option>
+		    	<option value="Single">Single</option>
+				</select>
+			</label>
+
 			<label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="data.name" type="text" placeholder="" value="">
@@ -23,13 +33,33 @@
 		    	<option ng-repeat="model in models" value="{{model}}">{{model}}</option>
 				</select>
 			</label>
-			<div ng-if="showSelectField">
+			<div ng-if="showSelectField && data.query_type === 'All'">
 				<ion-checkbox
 					ng-repeat="field in fields | orderBy:'name' | filter:search.value"
 					ng-value="field.id"
 					ng-click="selectField(field)">
 					{{field}}
 				</ion-checkbox>
+			</div>
+			
+      <div class="spacer" style="height:20px;"></div>
+
+			<div ng-if="data.query_type === 'Filter'">
+				<ion-checkbox
+					ng-repeat="field in fields | orderBy:'name' | filter:search.value"
+					ng-value="field.id"
+					ng-click="selectFieldFilter(field)">
+					{{field}}
+				</ion-checkbox>
+
+	      <div class="spacer" style="height:20px;"></div>
+
+				<div class="list">
+				  <label class="item item-input item-floating-label" ng-repeat="fieldFilter in fieldsFilterSelected">
+				    <span class="input-label">Which <span class="positive">{{fieldFilter}}</span> filter ?</span>
+				    <input type="text" placeholder="Which {{fieldFilter}} filter ?">
+				  </label>					  
+				</div>
 			</div>
 			<!-- <label class="item item-input item-select" ng-if="showSelectField">
 	      <span class="input-label">Fields</span>
