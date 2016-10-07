@@ -18,6 +18,13 @@ dataServices.service('tagsService', [ '$resource', '$rootScope', function ($reso
   });
 }]);
 
+dataServices.service('dataTypeService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+  var dataTypeUrl = '/api/parametrizations/data_type_choices/';
+  return $resource($rootScope.version + $rootScope.baseUrl + dataTypeUrl +':id/?format=json', {id: '@id'},{
+    get : { method: 'GET', headers: $rootScope.headersJWT },
+  });
+}]);
+
 dataServices.service('analyticsService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   var anlalyticsUrl = '/api/analytics/';
   return $resource($rootScope.version + $rootScope.baseUrl + anlalyticsUrl +'?format=json', {id: '@id'},{
@@ -25,5 +32,3 @@ dataServices.service('analyticsService', [ '$resource', '$rootScope', function (
     get2 : { method: 'GET', headers: $rootScope.headersJWT },
   });
 }]);
-
-

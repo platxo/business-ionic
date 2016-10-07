@@ -7,7 +7,7 @@ informationRoutes.config(['$stateProvider', '$urlRouterProvider', function ($sta
       views: {
         'tab-informations': {
           templateUrl: 'templates/information/information-list.html',
-          controller: 'informationController'
+          controller: 'informationListCtrl'
         }
       }
   	})
@@ -16,7 +16,7 @@ informationRoutes.config(['$stateProvider', '$urlRouterProvider', function ($sta
       views: {
         'tab-informations': {
           templateUrl: 'templates/information/information-detail.html',
-          controller: 'informationController'
+          controller: 'informationDetailCtrl'
         }
       }
     })
@@ -25,7 +25,7 @@ informationRoutes.config(['$stateProvider', '$urlRouterProvider', function ($sta
       views: {
         'tab-informations': {
           templateUrl: 'templates/information/information-create.html',
-          controller: 'informationController'
+          controller: 'informationCreateCtrl'
         }
       }
     })
@@ -34,7 +34,7 @@ informationRoutes.config(['$stateProvider', '$urlRouterProvider', function ($sta
       views: {
         'tab-informations': {
           templateUrl: 'templates/information/information-update.html',
-          controller: 'informationController'
+          controller: 'informationUpdateCtrl'
         }
       }
     })
@@ -43,7 +43,7 @@ informationRoutes.config(['$stateProvider', '$urlRouterProvider', function ($sta
       views: {
         'tab-informations': {
           templateUrl: 'templates/information/information-delete.html',
-          controller: 'informationController'
+          controller: 'informationDeleteCtrl'
         }
       }
     })

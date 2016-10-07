@@ -5,27 +5,27 @@ businessRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
   .state('business-list', {
     url: '/business-list',
     templateUrl: 'templates/business/business-list.html',
-    controller: 'businessController'
+    controller: 'businessListCtrl'
   })
   .state('business-detail', {
     url: '/business-detail/:id',
     templateUrl: 'templates/business/business-detail.html',
-    controller: 'businessController'
+    controller: 'businessDetailCtrl'
   })
   .state('business-create', {
     url: '/business-create',
     templateUrl: 'templates/business/business-create.html',
-    controller: 'businessController'
+    controller: 'businessCreateCtrl'
   })
   .state('business-update', {
     url: '/business-update/:id',
     templateUrl: 'templates/business/business-update.html',
-    controller: 'businessController'
+    controller: 'businessUpdateCtrl'
   })
   .state('business-delete', {
     url: '/business-delete/:id',
     templateUrl: 'templates/business/business-delete.html',
-    controller: 'businessController'
+    controller: 'businessDeleteCtrl'
   })
 
   $urlRouterProvider.otherwise('/login');

@@ -12,7 +12,7 @@ knowledgeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($state
       views: {
         'tab-knowledges': {
           templateUrl: 'templates/knowledge/knowledge-list.html',
-          controller: 'knowledgeController'
+          controller: 'knowledgeListCtrl'
         }
       }
   	})
@@ -21,7 +21,7 @@ knowledgeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($state
       views: {
         'tab-knowledges': {
           templateUrl: 'templates/knowledge/knowledge-detail.html',
-          controller: 'knowledgeController'
+          controller: 'knowledgeDetailCtrl'
         }
       }
     })
@@ -30,7 +30,7 @@ knowledgeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($state
       views: {
         'tab-knowledges': {
           templateUrl: 'templates/knowledge/knowledge-create.html',
-          controller: 'knowledgeController'
+          controller: 'knowledgeCreateCtrl'
         }
       }
     })
@@ -39,7 +39,7 @@ knowledgeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($state
       views: {
         'tab-knowledges': {
           templateUrl: 'templates/knowledge/knowledge-update.html',
-          controller: 'knowledgeController'
+          controller: 'knowledgeUpdateCtrl'
         }
       }
     })
@@ -48,7 +48,7 @@ knowledgeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($state
       views: {
         'tab-knowledges': {
           templateUrl: 'templates/knowledge/knowledge-delete.html',
-          controller: 'knowledgeController'
+          controller: 'knowledgeDeleteCtrl'
         }
       }
     })
