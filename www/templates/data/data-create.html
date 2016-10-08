@@ -1,74 +1,70 @@
 <ion-view view-title="Data Create">
 	<ion-content padding="true">
 		<form ng-submit="create()" class="list">
-
-			<label class="item item-input item-select">
-	      <span class="input-label">Query Type</span>
-	      <select ng-model="data.query_type" ng-change="selectQueryType(data.query_type)">
-		    	<option value="All">All</option>
-		    	<option value="Filter">Filter</option>
-		    	<option value="Single">Single</option>
-				</select>
-			</label>
-
+			<!-- NAME -->
 			<label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="data.name" type="text" placeholder="" value="">
       </label>
+      <!-- TAG COLOR -->
 			<label class="item item-input item-select">
 	      <span class="input-label">Tag</span>
 	      <select ng-model="data.tag">
 		    	<option ng-repeat="(key, value) in tags" value="{{key}}">{{value}}</option>
 				</select>
 			</label>
+			<!-- DATA TYPE -->
+			<label class="item item-input item-select">
+	      <span class="input-label">Data Type</span>
+	      <select ng-model="data.data_type" ng-change="selectQueryType(data.data_type)">
+		    	<option value="all">all</option>
+		    	<option value="filter">filter</option>
+		    	<option value="single">single</option>
+				</select>
+			</label>
+			<!-- SELECT APP -->
 			<label class="item item-input item-select">
 	      <span class="input-label">App</span>
 	      <select ng-model="app" ng-change="selectApp(app)">
 		    	<option ng-repeat="app in apps" value="{{app}}">{{app}}</option>
 				</select>
 			</label>
+			<!-- SELECT MODEL -->
 			<label class="item item-input item-select" ng-if="showSelectModel">
 	      <span class="input-label">Model</span>
 	      <select ng-model="model" ng-change="selectModel(model)">
 		    	<option ng-repeat="model in models" value="{{model}}">{{model}}</option>
 				</select>
 			</label>
-			<div ng-if="showSelectField && data.query_type === 'All'">
+			<!-- SELECT FIELDS FOR DATA TYPE ALL -->
+			<div ng-if="showSelectField && data.data_type === 'all'">
 				<ion-checkbox
 					ng-repeat="field in fields | orderBy:'name' | filter:search.value"
 					ng-value="field.id"
-					ng-click="selectField(field)">
+					ng-click="selectFieldForAll(field)">
 					{{field}}
 				</ion-checkbox>
 			</div>
-			
-      <div class="spacer" style="height:20px;"></div>
-
-			<div ng-if="data.query_type === 'Filter'">
+			<div class="spacer" style="height:20px;"></div>
+			<!-- SELECT FIELDS FOR DATA TYPE FILTER -->
+			<div ng-if="data.data_type === 'filter'">
 				<ion-checkbox
 					ng-repeat="field in fields | orderBy:'name' | filter:search.value"
 					ng-value="field.id"
-					ng-click="selectFieldFilter(field)">
+					ng-click="selectFieldForFilter(field)">
 					{{field}}
 				</ion-checkbox>
-
-	      <div class="spacer" style="height:20px;"></div>
-
-				<div class="list">
+				<div class="spacer" style="height:20px;"></div>
+				<!-- <div class="list">
 				  <label class="item item-input item-floating-label" ng-repeat="fieldFilter in fieldsFilterSelected">
 				    <span class="input-label">Which <span class="positive">{{fieldFilter}}</span> filter ?</span>
-				    <input type="text" placeholder="Which {{fieldFilter}} filter ?">
-				  </label>					  
-				</div>
+				    <input type="text" ng-model="preFilter{{fieldFilter}}" placeholder="Which {{fieldFilter}} filter ?">
+				  </label>
+				</div> -->
 			</div>
-			<!-- <label class="item item-input item-select" ng-if="showSelectField">
-	      <span class="input-label">Fields</span>
-	      <select ng-model="data.model" ng-change="selectModel(data.model)">
-		    	<option ng-repeat="model in models" value="{{model}}">{{model}}</option>
-				</select>
-			</label> -->
+			
 			<button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
 			<button type="button"  ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
-		</ion-content>
-    </form>
+		</form>
+	</ion-content>
 </ion-view>

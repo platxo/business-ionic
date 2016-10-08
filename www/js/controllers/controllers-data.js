@@ -10,6 +10,7 @@ dataControllers.controller('dataController', [
   'dataService',
   'tagsService',
   'analyticsService',
+  '$ionicPopup',
   function(
     $scope,
     $rootScope,
@@ -19,12 +20,13 @@ dataControllers.controller('dataController', [
     $ionicModal,
     dataService,
     tagsService,
-    analyticsService
+    analyticsService,
+    $ionicPopup
   )
   {
     $scope.data = {}
-    $scope.fieldsFilterSelected = []
-    $scope.fieldsSelected = []
+    $scope.data.data_fields = []
+    $scope.data.data_filters = []
 
     $ionicLoading.show({
     template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
@@ -51,13 +53,14 @@ dataControllers.controller('dataController', [
         "app": data.data_app,
         "model": data.data_model,
         "fields[]": data.data_fields,
+        "filters[]": data.data_filters,
+        "id": data.data_id
       })
         .$promise
           .then(function(res) {
             $rootScope.dataAnalytic = res
             $state.go('tab.data-detail', {'id': data.id});
           }, function(error) {
-            debugger
           })
     }
 
@@ -70,10 +73,12 @@ dataControllers.controller('dataController', [
 
       })
 
+    // $scope.preFilter =
+
 	  $scope.create = function () {
       $scope.data.data_app = $scope.appSelected
       $scope.data.data_model = $scope.modelSelected
-      $scope.data.data_fields = $scope.fieldsSelected
+      // $scope.data.data_fields = $scope.fieldsSelected
       $scope.data.business = $rootScope.currentBusiness.id;
       $scope.data.owner = $rootScope.currentOwner.id;
 	    dataService.create($scope.data)
@@ -162,20 +167,50 @@ dataControllers.controller('dataController', [
       $scope.showSelectField = true;
     }
 
-    $scope.selectField = function (field) {
-      // debugger
-      $scope.fieldsSelected.push(field)
+    $scope.selectFieldForAll = function (field) {
+      $scope.data.data_fields.push(field)
     }
 
-    $scope.selectFieldFilter = function (field) {
-      // debugger
-      $scope.fieldsFilterSelected.push(field)
+    $scope.selectFieldForFilter = function (field) {
+      $scope.valueFilter = {}
+      var PopupFilter = $ionicPopup.show({
+        template: '<input type="text" ng-model="valueFilter.name">',
+        title: 'Which field value',
+        subTitle: 'for ' + field + ' ?',
+        scope: $scope,
+        buttons: [
+          { text: '<b>Cancel</b>',
+            type: 'button-positive'
+          },
+          {
+            text: '<b>OK</b>',
+            type: 'button-balanced',
+            onTap: function(e) {
+              // if (!$scope.tax.name && !$scope.tax.rate) {
+              //   e.preventDefault();
+              // } else {
+              //   return $scope.tax;
+              // }
+              return $scope.valueFilter
+            }
+          }
+        ]
+      });
+      PopupFilter.then(function(res) {
+        if(res) {
+          $scope.data.data_fields.push(field)
+          $scope.data.data_filters.push(res.name)
+          
+        }
+
+      });
     }
 
     $scope.selectQueryType = function (queryType) {
-      // debugger
       $scope.queryTypeSelected = queryType
     }
+
+
 
 	}
 ]);
