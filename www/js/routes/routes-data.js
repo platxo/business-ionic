@@ -7,7 +7,7 @@ dataRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-datas': {
           templateUrl: 'templates/data/data-list.html',
-          controller: 'dataController'
+          controller: 'dataListCtrl'
         }
       }
   	})
@@ -16,7 +16,7 @@ dataRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-datas': {
           templateUrl: 'templates/data/data-detail.html',
-          controller: 'dataController'
+          controller: 'dataDetailCtrl'
         }
       }
     })
@@ -25,7 +25,7 @@ dataRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-datas': {
           templateUrl: 'templates/data/data-create.html',
-          controller: 'dataController'
+          controller: 'dataCreateCtrl'
         }
       }
     })
@@ -34,7 +34,7 @@ dataRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-datas': {
           templateUrl: 'templates/data/data-update.html',
-          controller: 'dataController'
+          controller: 'dataUpdateCtrl'
         }
       }
     })
@@ -43,7 +43,7 @@ dataRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-datas': {
           templateUrl: 'templates/data/data-delete.html',
-          controller: 'dataController'
+          controller: 'dataDeleteCtrl'
         }
       }
     })

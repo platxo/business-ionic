@@ -2,12 +2,10 @@ var knowledgeControllers = angular.module('knowledgeControllers', []);
 
 knowledgeControllers.controller('knowledgeListCtrl', [
   '$scope',
-  '$state',
   '$ionicLoading',
   'knowledgeService',
   function(
     $scope,
-    $state,
     $ionicLoading,
     knowledgeService
   )

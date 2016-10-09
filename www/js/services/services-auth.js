@@ -16,21 +16,21 @@ authServices.service('loginService', [ '$resource', '$rootScope', function ($res
 }]);
 
 authServices.service('forgotPasswordService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var forgotPasswordUrl = '/api/forgot-password/';
+  var forgotPasswordUrl = '/api/forgot_password/';
   return $resource($rootScope.version + $rootScope.baseUrl + forgotPasswordUrl +'?format=json', {},{
     send: { method: 'POST' }
   });
 }]);
 
 authServices.service('validateService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var validateUrl = '/api/forgot-password/validate/';
+  var validateUrl = '/api/forgot_password/validate/';
   return $resource($rootScope.version + $rootScope.baseUrl + validateUrl +'?format=json', {},{
     send: { method: 'POST' }
   });
 }]);
 
 authServices.service('resetPasswordService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var resetPasswordUrl = '/api/users/reset-password';
+  var resetPasswordUrl = '/api/users/reset_password';
   return $resource($rootScope.version + $rootScope.baseUrl + resetPasswordUrl +'?format=json', {},{
     send: { method: 'POST' }
   });

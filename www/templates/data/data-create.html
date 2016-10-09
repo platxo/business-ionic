@@ -17,9 +17,7 @@
 			<label class="item item-input item-select">
 	      <span class="input-label">Data Type</span>
 	      <select ng-model="data.data_type" ng-change="selectQueryType(data.data_type)">
-		    	<option value="all">all</option>
-		    	<option value="filter">filter</option>
-		    	<option value="single">single</option>
+					<option ng-repeat="(key, value) in dataTypes" value="{{key}}">{{value}}</option>
 				</select>
 			</label>
 			<!-- SELECT APP -->
@@ -62,7 +60,7 @@
 				  </label>
 				</div> -->
 			</div>
-			
+
 			<button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
 			<button type="button"  ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
 		</form>

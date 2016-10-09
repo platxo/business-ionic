@@ -2,12 +2,10 @@ var informationControllers = angular.module('informationControllers', []);
 
 informationControllers.controller('informationListCtrl', [
   '$scope',
-  '$state',
   '$ionicLoading',
   'informationService',
   function(
     $scope,
-    $state,
     $ionicLoading,
     informationService
   )

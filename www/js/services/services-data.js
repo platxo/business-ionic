@@ -28,7 +28,7 @@ dataServices.service('dataTypeService', [ '$resource', '$rootScope', function ($
 dataServices.service('analyticsService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   var anlalyticsUrl = '/api/analytics/';
   return $resource($rootScope.version + $rootScope.baseUrl + anlalyticsUrl +'?format=json', {id: '@id'},{
-    get : { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
-    get2 : { method: 'GET', headers: $rootScope.headersJWT },
+    getArray : { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
+    getObject : { method: 'GET', headers: $rootScope.headersJWT },
   });
 }]);

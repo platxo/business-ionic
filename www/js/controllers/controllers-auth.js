@@ -95,9 +95,9 @@ authControllers.controller('forgotPasswordController', [
   {
     $scope.step1 = true
 
-    $scope.sendEmail = function (email) {
-      $scope.email = email
-      forgotPasswordService.send($scope.email)
+    $scope.sendEmail = function (data) {
+      debugger
+      forgotPasswordService.send(data)
       .$promise
         .then (function (res) {
           $scope.step1 = false
@@ -107,14 +107,15 @@ authControllers.controller('forgotPasswordController', [
         })
     }
 
-    $scope.sendCode = function (code) {
-      validateService.send(code)
+    $scope.sendCode = function (data) {
+      debugger
+      validateService.send(data)
       .$promise
         .then (function (res) {
           $scope.step3= true
           $scope.step2= false
         }, function (err) {
-
+        
         })
     }
 
