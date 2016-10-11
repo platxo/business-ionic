@@ -45,7 +45,7 @@
 				<div class="spacer" style="height:20px;"></div>
 			</div>
 			<!-- SELECT FIELDS FOR DATA TYPE FILTER -->
-			<div ng-if="data.data_type === 'filter'">
+			<div ng-if="showSelectField && data.data_type === 'filter'">
 				<ion-checkbox
 					ng-repeat="field in fields"
 					ng-click="selectFieldForFilter(field)">
@@ -53,6 +53,25 @@
 				</ion-checkbox>
 				<div class="spacer" style="height:20px;"></div>
 			</div>
+			<!-- SELECT FIELDS FOR DATA TYPE SINGLE -->
+			<div ng-if="showSelectField && data.data_type === 'single'">
+				<ion-checkbox
+					ng-repeat="field in fields"
+					ng-click="selectFieldForSingle(field)">
+					{{field}}
+				</ion-checkbox>
+				<div class="spacer" style="height:20px;"></div>
+			</div>
+			<!-- SELECT MODEL LIST ITEMS -->
+			<label class="item item-input item-select" ng-if="showSelectModel">
+	      <span class="input-label">List {{data.data_model}}</span>
+	      <!-- <select ng-model="data.data_id" ng-change="selectListModel(data)"> -->
+	      <select ng-model="data.data_id">
+		    	<option ng-repeat="item in listModel" value="{{item.id}}">{{item.name}}</option>
+				</select>
+				<div class="spacer" style="height:20px;"></div>
+			</label>
+
 			<button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
 			<button type="button"  ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
 		</form>
