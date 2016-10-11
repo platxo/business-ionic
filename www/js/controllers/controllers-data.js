@@ -194,6 +194,10 @@ dataControllers.controller('dataCreateCtrl', [
 
         })
 
+    $scope.selectQueryType = function () {
+      $scope.showSelectApp = true;
+    }
+
     $scope.selectApp = function (app) {
       $scope.appSelected = app
       $scope.models = Object.keys($scope.allQuery[$scope.appSelected])
