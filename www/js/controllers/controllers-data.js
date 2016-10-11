@@ -83,12 +83,12 @@ dataControllers.controller('dataDetailCtrl', [
           $ionicLoading.hide();
           $scope.data = res
           analyticsService.getArray({
-            "type": $scope.data.data_type,
-            "app": $scope.data.data_app,
-            "model": $scope.data.data_model,
-            "fields[]": $scope.data.data_fields,
-            "filters[]": $scope.data.data_filters,
-            "id": $scope.data.data_id
+            type: $scope.data.data_type,
+            app: $scope.data.data_app,
+            model: $scope.data.data_model,
+            fields: $scope.data.data_fields,
+            filters: $scope.data.data_filters,
+            id: $scope.data.data_id
           })
             .$promise
               .then(function(res) {
@@ -204,12 +204,10 @@ dataControllers.controller('dataCreateCtrl', [
       $scope.showSelectField = true;
       if ($scope.data.data_type === 'single') {
         analyticsService.getArray({
-          "type": 'all',
-          "app": $scope.data.data_app,
-          "model": $scope.data.data_model,
-          "fields[]": $scope.data.data_fields,
-          "filters[]": $scope.data.data_filters,
-          "id": $scope.data.data_id
+          type: 'all',
+          app: $scope.data.data_app,
+          model: $scope.data.data_model,
+          fields: $scope.data.data_fields,
         })
           .$promise
             .then(function(res) {
@@ -222,6 +220,11 @@ dataControllers.controller('dataCreateCtrl', [
 
     $scope.selectFieldForAll = function (field) {
       $scope.data.data_fields.push(field)
+    }
+
+    $scope.selectFieldForSingle = function (field) {
+      $scope.data.data_fields.push(field)
+      // $scope.data.data_id =
     }
 
     $scope.selectFieldForFilter = function (field) {
@@ -249,22 +252,15 @@ dataControllers.controller('dataCreateCtrl', [
         ]
       });
       PopupFilter.then(function(res) {
-        debugger
         if(res !== undefined) {
           $scope.data.data_fields.push(field)
           $scope.data.data_filters.push(res.value)
         } else {
-          debugger
           var empty = '';
           $scope.data.data_fields.push(field)
           $scope.data.data_filters.push(empty)
         }
       });
-    }
-
-    $scope.selectFieldForSingle = function (field) {
-      $scope.data.data_fields.push(field)
-      // $scope.data.data_id = 
     }
 
     $scope.cancel = function () {
@@ -365,6 +361,7 @@ dataControllers.controller('dataUpdateCtrl', [
 
     $scope.selectType = function (data) {
       $scope.typeSelected = data.data_type
+      $scope.showSelectApp = true;
     }
 
     $scope.selectApp = function (data) {
@@ -377,10 +374,29 @@ dataControllers.controller('dataUpdateCtrl', [
       $scope.modelSelected = data.data_model
       $scope.fields = $scope.allQuery[$scope.appSelected][$scope.modelSelected]
       $scope.showSelectField = true;
+      if ($scope.data.data_type === 'single') {
+        analyticsService.getArray({
+          type: 'all',
+          app: $scope.data.data_app,
+          model: $scope.data.data_model,
+          fields: $scope.data.data_fields,
+        })
+          .$promise
+            .then(function(res) {
+              $scope.listModel = res
+            }, function (err) {
+
+            })
+      }
     }
 
     $scope.selectFieldForAll = function (field) {
       $scope.data.data_fields.push(field)
+    }
+
+    $scope.selectFieldForSingle = function (field) {
+      $scope.data.data_fields.push(field)
+      // $scope.data.data_id =
     }
 
     $scope.selectFieldForFilter = function (field) {
