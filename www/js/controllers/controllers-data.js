@@ -83,6 +83,7 @@ dataControllers.controller('dataDetailCtrl', [
           $ionicLoading.hide();
           $scope.data = res
           analyticsService.getArray({
+            "type": $scope.data.data_type,
             "app": $scope.data.data_app,
             "model": $scope.data.data_model,
             "fields[]": $scope.data.data_fields,
@@ -91,7 +92,7 @@ dataControllers.controller('dataDetailCtrl', [
           })
             .$promise
               .then(function(res) {
-                $scope.dataAnalytic = res
+                $scope.dataAnalytics = res
               }, function (err) {
 
               })
@@ -166,9 +167,6 @@ dataControllers.controller('dataCreateCtrl', [
     $scope.data.data_filters = []
 
 	  $scope.create = function () {
-      $scope.data.data_app = $scope.appSelected
-      $scope.data.data_model = $scope.modelSelected
-      // $scope.data.data_fields = $scope.fieldsSelected
       $scope.data.business = $rootScope.currentBusiness.id;
       $scope.data.owner = $rootScope.currentOwner.id;
 	    dataService.create($scope.data)
@@ -183,25 +181,24 @@ dataControllers.controller('dataCreateCtrl', [
     analyticsService.getObject()
       .$promise
         .then(function (res) {
-          $scope.allQuery = res;
+          $scope.allQuery = res.toJSON()
           $scope.apps = Object.keys($scope.allQuery)
-          var removeOne = $scope.apps.indexOf("$promise");
-          // var removeTwo = $scope.apps.indexOf("$resolved");
-          $scope.apps.splice(removeOne, 2)
-
-          console.log($scope.allQuery)
         }, function (error) {
 
         })
 
-    $scope.selectApp = function (app) {
-      $scope.appSelected = app
+    $scope.selectType = function (data) {
+      $scope.typeSelected = data.data_type
+    }
+
+    $scope.selectApp = function (data) {
+      $scope.appSelected = data.data_app
       $scope.models = Object.keys($scope.allQuery[$scope.appSelected])
       $scope.showSelectModel = true;
     }
 
-    $scope.selectModel = function (model) {
-      $scope.modelSelected = model
+    $scope.selectModel = function (data) {
+      $scope.modelSelected = data.data_model
       $scope.fields = $scope.allQuery[$scope.appSelected][$scope.modelSelected]
       $scope.showSelectField = true;
     }
@@ -213,32 +210,37 @@ dataControllers.controller('dataCreateCtrl', [
     $scope.selectFieldForFilter = function (field) {
       $scope.valueFilter = {}
       var PopupFilter = $ionicPopup.show({
-        template: '<input type="text" ng-model="valueFilter.name">',
-        title: 'Which field value',
-        subTitle: 'for ' + field + ' ?',
+        template: '<input type="text" ng-model="valueFilter.value">',
+        title: 'You want to filter',
+        subTitle: 'by ' + field + ' ?',
         scope: $scope,
         buttons: [
-          { text: '<b>Cancel</b>',
+          { text: '<b>NOT</b>',
             type: 'button-positive'
           },
           {
-            text: '<b>OK</b>',
+            text: '<b>YES</b>',
             type: 'button-balanced',
             onTap: function(e) {
-              // if (!$scope.tax.name && !$scope.tax.rate) {
-              //   e.preventDefault();
-              // } else {
-              //   return $scope.tax;
-              // }
-              return $scope.valueFilter
+              if (!$scope.valueFilter.value) {
+                e.preventDefault();
+              } else {
+                return $scope.valueFilter;
+              }
             }
           }
         ]
       });
       PopupFilter.then(function(res) {
-        if(res) {
+        debugger
+        if(res !== undefined) {
           $scope.data.data_fields.push(field)
-          $scope.data.data_filters.push(res.name)
+          $scope.data.data_filters.push(res.value)
+        } else {
+          debugger
+          var empty = '';
+          $scope.data.data_fields.push(field)
+          $scope.data.data_filters.push(empty)
         }
       });
     }
@@ -253,6 +255,7 @@ dataControllers.controller('dataCreateCtrl', [
 dataControllers.controller('dataUpdateCtrl', [
   '$scope',
   '$rootScope',
+  '$stateParams',
   '$state',
   '$ionicLoading',
   '$ionicModal',
@@ -264,6 +267,7 @@ dataControllers.controller('dataUpdateCtrl', [
   function(
     $scope,
     $rootScope,
+    $stateParams,
     $state,
     $ionicLoading,
     $ionicModal,
@@ -319,8 +323,6 @@ dataControllers.controller('dataUpdateCtrl', [
         });
 
     $scope.update = function () {
-      $scope.data.data_app = $scope.appSelected
-      $scope.data.data_model = $scope.modelSelected
 	    dataService.update($scope.data)
         .$promise
           .then(function (res) {
@@ -333,25 +335,24 @@ dataControllers.controller('dataUpdateCtrl', [
     analyticsService.getObject()
       .$promise
         .then(function (res) {
-          $scope.allQuery = res;
+          $scope.allQuery = res.toJSON()
           $scope.apps = Object.keys($scope.allQuery)
-          var removeOne = $scope.apps.indexOf("$promise");
-          // var removeTwo = $scope.apps.indexOf("$resolved");
-          $scope.apps.splice(removeOne, 2)
-
-          console.log($scope.allQuery)
         }, function (error) {
 
         })
 
-    $scope.selectApp = function (app) {
-      $scope.appSelected = app
+    $scope.selectType = function (data) {
+      $scope.typeSelected = data.data_type
+    }
+
+    $scope.selectApp = function (data) {
+      $scope.appSelected = data.data_app
       $scope.models = Object.keys($scope.allQuery[$scope.appSelected])
       $scope.showSelectModel = true;
     }
 
-    $scope.selectModel = function (model) {
-      $scope.modelSelected = model
+    $scope.selectModel = function (data) {
+      $scope.modelSelected = data.data_model
       $scope.fields = $scope.allQuery[$scope.appSelected][$scope.modelSelected]
       $scope.showSelectField = true;
     }
@@ -363,32 +364,37 @@ dataControllers.controller('dataUpdateCtrl', [
     $scope.selectFieldForFilter = function (field) {
       $scope.valueFilter = {}
       var PopupFilter = $ionicPopup.show({
-        template: '<input type="text" ng-model="valueFilter.name">',
-        title: 'Which field value',
-        subTitle: 'for ' + field + ' ?',
+        template: '<input type="text" ng-model="valueFilter.value">',
+        title: 'You want to filter',
+        subTitle: 'by ' + field + ' ?',
         scope: $scope,
         buttons: [
-          { text: '<b>Cancel</b>',
+          { text: '<b>NOT</b>',
             type: 'button-positive'
           },
           {
-            text: '<b>OK</b>',
+            text: '<b>YES</b>',
             type: 'button-balanced',
             onTap: function(e) {
-              // if (!$scope.tax.name && !$scope.tax.rate) {
-              //   e.preventDefault();
-              // } else {
-              //   return $scope.tax;
-              // }
-              return $scope.valueFilter
+              if (!$scope.valueFilter.value) {
+                e.preventDefault();
+              } else {
+                return $scope.valueFilter;
+              }
             }
           }
         ]
       });
       PopupFilter.then(function(res) {
-        if(res) {
+        debugger
+        if(res !== undefined) {
           $scope.data.data_fields.push(field)
-          $scope.data.data_filters.push(res.name)
+          $scope.data.data_filters.push(res.value)
+        } else {
+          debugger
+          var empty = '';
+          $scope.data.data_fields.push(field)
+          $scope.data.data_filters.push(empty)
         }
       });
     }

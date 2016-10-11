@@ -1,6 +1,6 @@
 var employeeControllers = angular.module('employeeControllers', []);
 
-employeeControllers.controller('employeeController', [
+employeeControllers.controller('employeeCtrl', [
   '$scope',
   '$rootScope',
   '$stateParams',
@@ -42,7 +42,6 @@ employeeControllers.controller('employeeController', [
           })
         })
 
-    $scope.employee = employeesService.detail({id: $stateParams.id});
     $scope.bs = businessService.detail({id: $rootScope.currentBusiness.id});
 
     $scope.addEmployee = function(employee) {
@@ -87,10 +86,6 @@ employeeControllers.controller('employeeController', [
       }
     }
 
-	  $scope.cancel = function () {
-	    $state.go('employee-list');
-	  }
-
     $scope.refresh = function () {
       $scope.employees = employeesService.list();
       $scope.$broadcast('scroll.refreshComplete');
@@ -98,7 +93,7 @@ employeeControllers.controller('employeeController', [
 
     $ionicModal.fromTemplateUrl('templates/employee/employee-add.html', {
       scope: $scope,
-      controller: 'employeeCotroller',
+      controller: 'employeeCtrl',
       animation: 'slide-in-up',
       focusFirstInput: true
     }).then(function(modal) {
@@ -125,6 +120,39 @@ employeeControllers.controller('employeeController', [
             })
           })
 	  })
+
+	}
+]);
+
+employeeControllers.controller('employeeProfileCtrl', [
+  '$scope',
+  '$stateParams',
+  '$ionicLoading',
+  'employeesService',
+  function(
+    $scope,
+    $stateParams,
+    $ionicLoading,
+    employeesService
+  )
+  {
+    $ionicLoading.show({
+      template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: true
+    });
+
+    employeesService.detail({id: $stateParams.id})
+      .$promise
+        .then(function (res) {
+          $scope.employee = res
+          $ionicLoading.hide();
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          })
+        })
 
 	}
 ]);
