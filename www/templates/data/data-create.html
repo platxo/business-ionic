@@ -21,7 +21,7 @@
 				</select>
 			</label>
 			<!-- SELECT APP -->
-			<label class="item item-input item-select">
+			<label class="item item-input item-select" ng-if="showSelectApp">
 	      <span class="input-label">App</span>
 	      <select ng-model="data.data_app" ng-change="selectApp(data)">
 		    	<option ng-repeat="app in apps" value="{{app}}">{{app}}</option>
@@ -33,6 +33,7 @@
 	      <select ng-model="data.data_model" ng-change="selectModel(data)">
 		    	<option ng-repeat="model in models" value="{{model}}">{{model}}</option>
 				</select>
+				<div class="spacer" style="height:20px;"></div>
 			</label>
 			<!-- SELECT FIELDS FOR DATA TYPE ALL -->
 			<div ng-if="showSelectField && data.data_type === 'all'">
@@ -41,8 +42,8 @@
 					ng-click="selectFieldForAll(field)">
 					{{field}}
 				</ion-checkbox>
+				<div class="spacer" style="height:20px;"></div>
 			</div>
-			<div class="spacer" style="height:20px;"></div>
 			<!-- SELECT FIELDS FOR DATA TYPE FILTER -->
 			<div ng-if="data.data_type === 'filter'">
 				<ion-checkbox
@@ -51,12 +52,6 @@
 					{{field}}
 				</ion-checkbox>
 				<div class="spacer" style="height:20px;"></div>
-				<!-- <div class="list">
-				  <label class="item item-input item-floating-label" ng-repeat="fieldFilter in fieldsFilterSelected">
-				    <span class="input-label">Which <span class="positive">{{fieldFilter}}</span> filter ?</span>
-				    <input type="text" ng-model="preFilter{{fieldFilter}}" placeholder="Which {{fieldFilter}} filter ?">
-				  </label>
-				</div> -->
 			</div>
 			<button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
 			<button type="button"  ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>

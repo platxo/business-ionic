@@ -189,10 +189,11 @@ dataControllers.controller('dataCreateCtrl', [
 
     $scope.selectType = function (data) {
       $scope.typeSelected = data.data_type
+      $scope.showSelectApp = true;
     }
 
-    $scope.selectApp = function (data) {
-      $scope.appSelected = data.data_app
+    $scope.selectApp = function (app) {
+      $scope.appSelected = app
       $scope.models = Object.keys($scope.allQuery[$scope.appSelected])
       $scope.showSelectModel = true;
     }
