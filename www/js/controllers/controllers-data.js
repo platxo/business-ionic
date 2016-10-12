@@ -173,6 +173,7 @@ dataControllers.controller('dataCreateCtrl', [
       .$promise
         .then(function (res) {
       	  $state.go('tab.data-list');
+          $scope.data = {}
         }, function (err) {
 
         })
@@ -265,6 +266,7 @@ dataControllers.controller('dataCreateCtrl', [
 
     $scope.cancel = function () {
 	    $state.go('tab.data-list');
+      $scope.data = {}
 	  }
 
 	}
@@ -345,6 +347,7 @@ dataControllers.controller('dataUpdateCtrl', [
         .$promise
           .then(function (res) {
             $state.go('tab.data-list');
+            $scope.data = {}
           }, function (err) {
 
           })
@@ -437,6 +440,7 @@ dataControllers.controller('dataUpdateCtrl', [
 
     $scope.cancel = function () {
 	    $state.go('tab.data-list');
+      $scope.data = {}
 	  }
 
 	}
@@ -479,6 +483,7 @@ dataControllers.controller('dataDeleteCtrl', [
         .$promise
           .then(function (res) {
             $state.go('tab.data-list');
+            $scope.data = {}
           }, function (err) {
 
           })
