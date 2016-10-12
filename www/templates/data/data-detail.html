@@ -9,12 +9,15 @@
 
 	<ion-content padding="true">
     <div class="list card">
-      <div class="item item-divider">{{data.name}}</div>
+      <div class="item item-avatar">
+				<img ng-src="img/tags/{{ data.tag }}.png">
+				<h2>{{data.name}}</h2>
+				<p>{{data.data_type}}</p>
+			</div>
       <div class="item item-body">
 				data: {{dataAnalytics}}
-				<p>updated: {{data.data_url}}</p>
 				<p>created: {{data.created | date:"MM/dd/yyyy 'at' h:mma"}}</p>
-				<p>created: {{data.created | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+				<p>updated: {{data.updated | date:"MM/dd/yyyy 'at' h:mma"}}</p>
       </div>
     </div>
 	</ion-content>

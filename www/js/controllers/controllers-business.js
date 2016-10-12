@@ -221,6 +221,7 @@ businessControllers.controller('businessUpdateCtrl', [
   '$scope',
   '$stateParams',
   '$state',
+  '$cordovaCamera',
   '$ionicLoading',
   'businessService',
   'countriesService',
@@ -232,6 +233,7 @@ businessControllers.controller('businessUpdateCtrl', [
     $scope,
     $stateParams,
     $state,
+    $cordovaCamera,
     $ionicLoading,
     businessService,
     countriesService,
@@ -333,6 +335,34 @@ businessControllers.controller('businessUpdateCtrl', [
 
         })
 	  }
+
+    $scope.takePicture = function() {
+      var options = {
+          quality : 100,
+          destinationType : Camera.DestinationType.DATA_URL,
+          sourceType : Camera.PictureSourceType.CAMERA,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+      };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      $scope.bs.picture = "data:image/jpeg;base64," + imageData;
+      businessService.update($scope.bs)
+        .$promise
+          .then(function (res) {
+            $state.go('business-detail', {'id':$scope.bs.id});
+          }, function (err) {
+
+          })
+    }, function(error) {
+          alert(JSON.stringify(err));
+    });
+   }
 
 	  $scope.cancel = function () {
 	    $state.go('business-list');
