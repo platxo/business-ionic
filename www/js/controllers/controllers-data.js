@@ -173,7 +173,6 @@ dataControllers.controller('dataCreateCtrl', [
       .$promise
         .then(function (res) {
       	  $state.go('tab.data-list');
-          $scope.data = {}
         }, function (err) {
 
         })
@@ -266,7 +265,6 @@ dataControllers.controller('dataCreateCtrl', [
 
     $scope.cancel = function () {
 	    $state.go('tab.data-list');
-      $scope.data = {}
 	  }
 
 	}
@@ -399,7 +397,6 @@ dataControllers.controller('dataUpdateCtrl', [
 
     $scope.selectFieldForSingle = function (field) {
       $scope.data.data_fields.push(field)
-      // $scope.data.data_id =
     }
 
     $scope.selectFieldForFilter = function (field) {
@@ -440,7 +437,6 @@ dataControllers.controller('dataUpdateCtrl', [
 
     $scope.cancel = function () {
 	    $state.go('tab.data-list');
-      $scope.data = {}
 	  }
 
 	}
