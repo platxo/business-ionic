@@ -18,8 +18,8 @@ dataControllers.controller('dataListCtrl', [
 	  dataService.list()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.datas = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -32,8 +32,8 @@ dataControllers.controller('dataListCtrl', [
       dataService.list()
         .$promise
           .then(function (res) {
-            $ionicLoading.hide();
             $scope.datas = res
+            $ionicLoading.hide();
             $scope.$broadcast('scroll.refreshComplete');
           }, function (err) {
 
@@ -80,8 +80,8 @@ dataControllers.controller('dataDetailCtrl', [
     dataService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.data = res
+          $ionicLoading.hide();
           analyticsService.getArray({
             type: $scope.data.data_type,
             app: $scope.data.data_app,
@@ -139,8 +139,8 @@ dataControllers.controller('dataCreateCtrl', [
     tagsService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.tags = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -152,8 +152,8 @@ dataControllers.controller('dataCreateCtrl', [
     dataTypeService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.dataTypes = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -224,7 +224,6 @@ dataControllers.controller('dataCreateCtrl', [
 
     $scope.selectFieldForSingle = function (field) {
       $scope.data.data_fields.push(field)
-      // $scope.data.data_id =
     }
 
     $scope.selectFieldForFilter = function (field) {
@@ -304,8 +303,8 @@ dataControllers.controller('dataUpdateCtrl', [
     tagsService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.tags = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -317,8 +316,8 @@ dataControllers.controller('dataUpdateCtrl', [
     dataTypeService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.dataTypes = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -330,8 +329,8 @@ dataControllers.controller('dataUpdateCtrl', [
     dataService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.data = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -345,7 +344,6 @@ dataControllers.controller('dataUpdateCtrl', [
         .$promise
           .then(function (res) {
             $state.go('tab.data-list');
-            $scope.data = {}
           }, function (err) {
 
           })
@@ -464,8 +462,8 @@ dataControllers.controller('dataDeleteCtrl', [
     dataService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.data = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -479,7 +477,6 @@ dataControllers.controller('dataDeleteCtrl', [
         .$promise
           .then(function (res) {
             $state.go('tab.data-list');
-            $scope.data = {}
           }, function (err) {
 
           })

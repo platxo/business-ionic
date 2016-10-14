@@ -15,10 +15,19 @@
 				<p>{{data.data_type}}</p>
 			</div>
       <div class="item item-body">
-				data: {{dataAnalytics}}
+				<ion-list ng-repeat="object in dataAnalytics">
+					<div class="item item-divider">
+	    		{{$index+1}}. {{data.data_model}}
+	  			</div>
+					<ion-item ng-repeat="(key, value) in object">
+						<h2>{{key}}: {{value}}</h2>
+					</ion-item>
+				</ion-list>
+      </div>
+			<div class="item item-divider">
 				<p>created: {{data.created | date:"MM/dd/yyyy 'at' h:mma"}}</p>
 				<p>updated: {{data.updated | date:"MM/dd/yyyy 'at' h:mma"}}</p>
-      </div>
+			</div>
     </div>
 	</ion-content>
 </ion-view>

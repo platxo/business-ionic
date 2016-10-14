@@ -18,8 +18,8 @@ informationControllers.controller('informationListCtrl', [
 	  informationService.list()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.informations = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -37,8 +37,8 @@ informationControllers.controller('informationListCtrl', [
       informationService.list()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.informations = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -206,8 +206,8 @@ informationControllers.controller('informationUpdateCtrl', [
     tagsService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.tags = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({

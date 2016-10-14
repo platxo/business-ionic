@@ -24,17 +24,17 @@ businessControllers.controller('businessListCtrl', [
     });
 
 	  businessService.list()
-    .$promise
-      .then(function (res) {
-        $ionicLoading.hide();
-        $scope.business = res
-      }, function (err) {
-        $ionicLoading.hide();
-        $ionicLoading.show({
-          template: 'Network Error',
-          scope: $scope
+      .$promise
+        .then(function (res) {
+          $scope.business = res
+          $ionicLoading.hide();
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          })
         })
-      })
 
     $scope.selectBusiness = function(bs) {
       $rootScope.currentBusiness = bs
@@ -51,8 +51,8 @@ businessControllers.controller('businessListCtrl', [
 	    businessService.list()
         .$promise
           .then(function (res) {
-            $ionicLoading.hide();
             $scope.business = res
+            $ionicLoading.hide();
           }, function (err) {
             $ionicLoading.hide();
             $ionicLoading.show({
@@ -96,7 +96,6 @@ businessControllers.controller('businessDetailCtrl', [
             scope: $scope
           })
         });
-
 	}
 ]);
 
@@ -132,8 +131,8 @@ businessControllers.controller('businessCreateCtrl', [
     sizesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.sizes = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -145,8 +144,8 @@ businessControllers.controller('businessCreateCtrl', [
     categoriesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.categories = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -158,8 +157,8 @@ businessControllers.controller('businessCreateCtrl', [
     typesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.types = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -171,8 +170,8 @@ businessControllers.controller('businessCreateCtrl', [
     countriesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.countries = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -184,8 +183,8 @@ businessControllers.controller('businessCreateCtrl', [
     currenciesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.currencies = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -251,8 +250,8 @@ businessControllers.controller('businessUpdateCtrl', [
     sizesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.sizes = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -264,8 +263,8 @@ businessControllers.controller('businessUpdateCtrl', [
     categoriesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.categories = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -277,8 +276,8 @@ businessControllers.controller('businessUpdateCtrl', [
     typesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.types = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -290,8 +289,8 @@ businessControllers.controller('businessUpdateCtrl', [
     countriesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.countries = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -303,8 +302,8 @@ businessControllers.controller('businessUpdateCtrl', [
     currenciesService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.currencies = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({

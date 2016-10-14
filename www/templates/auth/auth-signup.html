@@ -2,32 +2,30 @@
     <ion-content padding="true">
         <form ng-submit="signup()" class="list">
             <ion-list>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">First name</span>
+                <label class="item item-input">
                     <input ng-model="user.first_name" type="text" placeholder="First name">
                 </label>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Last name</span>
+                <label class="item item-input">
                     <input ng-model="user.last_name" type="text" placeholder="Last name">
                 </label>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Username</span>
+                <label class="item item-input">
                     <input ng-model="user.username" type="text" placeholder="Username" autocapitalize="off">
                 </label>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Email</span>
+                <label class="item item-input">
                     <input ng-model="user.email" type="email" placeholder="Email">
                 </label>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Password</span>
+                <label class="item item-input">
                     <input ng-model="user.password" type="password" placeholder="Password">
                 </label>
             </ion-list>
+            <div class="spacer" style="height: 40px;"></div>
             <button
             type="submit"
             class="button button-balanced button-block button-outline icon-left ion-android-person-add">
             Sign up
             </button>
+            <button ui-sref="#" class="button button-assertive button-block button-default icon-left ion-social-google">Google</button>
+            <button ui-sref="#" class="button button-positive button-block button-default icon-left ion-social-facebook">Facebook</button>
             <a
             ui-sref="login"
             class="button button-positive  button-block button-outline icon-left ion-android-arrow-back">

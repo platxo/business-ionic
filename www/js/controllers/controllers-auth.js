@@ -3,13 +3,11 @@ var authControllers = angular.module('authControllers', []);
 authControllers.controller('signupController', [
   '$scope',
   '$state',
-  '$location',
   'signupService',
   'loginService',
   function(
     $scope,
     $state,
-    $location,
     signupService,
     loginService
   )
@@ -30,10 +28,10 @@ authControllers.controller('signupController', [
                   $state.go('business-list');
                 }, function (err) {
                   $scope.user = {}
-                  $location.path('/login');
+                  $state.go('login');
                 })
           }, function (err) {
-            $location.path('/signup');
+            $state.go('signup');
           })
 	  }
 	}
@@ -42,14 +40,12 @@ authControllers.controller('signupController', [
 authControllers.controller('loginController', [
   '$scope',
   '$state',
-  '$location',
   '$rootScope',
   'loginService',
   'signupService',
   function(
     $scope,
     $state,
-    $location,
     $rootScope,
     loginService,
     signupService
@@ -62,18 +58,23 @@ authControllers.controller('loginController', [
       .$promise
         .then( function (res) {
           $scope.user = {}
+          window.localStorage.setItem('token', JSON.stringify(res.token));
+          window.localStorage.setItem('user', JSON.stringify(res.user));
           if (!res.user.is_owner) {
             res.user.is_owner = true;
             signupService.update(res.user)
+              .$promise
+                .then( function (res) {
+                  $rootScope.currentOwner = res.owner;
+                  $state.go('business-list');
+                }, function (err) {
+
+                })
           }
-          window.localStorage.setItem('token', JSON.stringify(res.token));
-          window.localStorage.setItem('user', JSON.stringify(res.user));
-          $rootScope.headersJWT = {'Authorization': 'JWT ' + res.token};
-          $rootScope.currentOwner = res.user.owner;
-          $state.go('business-list');
         },
         function (err) {
           $scope.user = {}
+          $state.go('login');
         })
     }
 	}
@@ -96,30 +97,32 @@ authControllers.controller('forgotPasswordController', [
     $scope.step1 = true
 
     $scope.sendEmail = function (data) {
-      debugger
+      $scope.email = data.email
       forgotPasswordService.send(data)
       .$promise
         .then (function (res) {
           $scope.step1 = false
           $scope.step2 = true
         }, function (err) {
-
+          $scope.email = ''
         })
     }
 
     $scope.sendCode = function (data) {
-      debugger
+      data.email = $scope.email;
       validateService.send(data)
       .$promise
         .then (function (res) {
-          $scope.step3= true
-          $scope.step2= false
+          $scope.forgotToken = res.token
+          $scope.step3 = true
+          $scope.step2 = false
         }, function (err) {
-        
+
         })
     }
 
     $scope.sendPassword = function (data) {
+      data.token = $scope.forgotToken
       resetPasswordService.send(data)
       .$promise
         .then (function (res) {
@@ -134,6 +137,36 @@ authControllers.controller('forgotPasswordController', [
 
 
 authControllers.controller('profileController', [
+  '$scope',
+  '$stateParams',
+  '$state',
+  function(
+    $scope,
+    $stateParams,
+    $state
+  )
+  {
+
+
+	}
+]);
+
+authControllers.controller('GoogleCtrl', [
+  '$scope',
+  '$stateParams',
+  '$state',
+  function(
+    $scope,
+    $stateParams,
+    $state
+  )
+  {
+
+
+	}
+]);
+
+authControllers.controller('FacebookCtrl', [
   '$scope',
   '$stateParams',
   '$state',

@@ -18,8 +18,8 @@ knowledgeControllers.controller('knowledgeListCtrl', [
 	  knowledgeService.list()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.knowledges = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -37,8 +37,8 @@ knowledgeControllers.controller('knowledgeListCtrl', [
       knowledgeService.list()
         .$promise
           .then(function (res) {
-            $ionicLoading.hide();
             $scope.knowledges = res
+            $ionicLoading.hide();
           }, function (err) {
             $ionicLoading.hide();
             $ionicLoading.show({
@@ -86,8 +86,8 @@ knowledgeControllers.controller('knowledgeDetailCtrl', [
     informationService.list()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.informations = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -127,8 +127,8 @@ knowledgeControllers.controller('knowledgeCreateCtrl', [
     tagsService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.tags = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -207,8 +207,8 @@ knowledgeControllers.controller('knowledgeUpdateCtrl', [
     tagsService.get()
       .$promise
         .then(function (res) {
-          $ionicLoading.hide();
           $scope.tags = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({

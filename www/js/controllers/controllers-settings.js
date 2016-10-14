@@ -30,47 +30,47 @@ settingsControllers.controller('settingsController', [
     });
 
     businessService.detail({id: $rootScope.currentBusiness.id})
-    .$promise
-      .then(function (res) {
-        $scope.bs = res
-        $scope.crm_points = $scope.bs.crm_points
-      }, function (err) {
+      .$promise
+        .then(function (res) {
+          $scope.bs = res
+          $scope.crm_points = $scope.bs.crm_points
+        }, function (err) {
 
-      })
+        })
 
     crmPointsService.get()
-    .$promise
-      .then(function (res) {
-        $scope.crmPoints = res
-      }, function (err) {
+      .$promise
+        .then(function (res) {
+          $scope.crmPoints = res
+        }, function (err) {
 
-      })
+        })
 
     $scope.selectCrmPoints = function(key, value) {
       $scope.bs.crm_points = key;
       businessService.update($scope.bs)
-      .$promise
-        .then(
-          function (res) {
-          $state.go('settings-list');
-        },
-         function (err) {
+        .$promise
+          .then(
+            function (res) {
+            $state.go('settings-list');
+          },
+           function (err) {
 
-         })
+           })
       };
 
 	  taxService.list()
-    .$promise
-      .then(function (res) {
-        $ionicLoading.hide();
-        $scope.taxes = res
-      }, function (err) {
-        $ionicLoading.hide();
-        $ionicLoading.show({
-          template: 'Network Error',
-          scope: $scope
+      .$promise
+        .then(function (res) {
+          $ionicLoading.hide();
+          $scope.taxes = res
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          })
         })
-      })
 
       $scope.taxCreate = function() {
       $scope.tax = {}
