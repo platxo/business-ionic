@@ -71,6 +71,8 @@ authControllers.controller('loginController', [
 
                 })
           }
+          $rootScope.currentOwner = res.user.owner;
+          $state.go('business-list');
         },
         function (err) {
           $scope.user = {}

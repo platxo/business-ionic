@@ -1,26 +1,27 @@
-<ion-view view-title="Signup">
+<ion-view cache-view="false" view-title="Signup">
     <ion-content padding="true">
-        <form ng-submit="signup()" class="list">
+        <form name="signupForm" ng-submit="signupForm.$valid && signup()" class="list" novalidate>
             <ion-list>
                 <label class="item item-input">
-                    <input ng-model="user.first_name" type="text" placeholder="First name">
+                    <input ng-model="user.first_name" type="text" placeholder="First name" required>
                 </label>
                 <label class="item item-input">
-                    <input ng-model="user.last_name" type="text" placeholder="Last name">
+                    <input ng-model="user.last_name" type="text" placeholder="Last name" required>
                 </label>
                 <label class="item item-input">
-                    <input ng-model="user.username" type="text" placeholder="Username" autocapitalize="off">
+                    <input ng-model="user.username" type="text" placeholder="Username" autocapitalize="off" required>
                 </label>
                 <label class="item item-input">
-                    <input ng-model="user.email" type="email" placeholder="Email">
+                    <input ng-model="user.email" type="email" placeholder="Email" required>
                 </label>
                 <label class="item item-input">
-                    <input ng-model="user.password" type="password" placeholder="Password">
+                    <input ng-model="user.password" type="password" placeholder="Password" required>
                 </label>
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
             <button
             type="submit"
+            ng-disabled="!signupForm.$valid"
             class="button button-balanced button-block button-outline icon-left ion-android-person-add">
             Sign up
             </button>
