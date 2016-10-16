@@ -29,8 +29,19 @@ informationControllers.controller('informationListCtrl', [
         })
 
     $scope.refresh = function () {
-      $scope.informations = informationService.list();
-      $scope.$broadcast('scroll.refreshComplete');
+      informationService.list()
+        .$promise
+          .then(function (res) {
+            $scope.informations = res
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
     }
 
     $scope.$on('$stateChangeSuccess', function() {
@@ -144,12 +155,12 @@ informationControllers.controller('informationCreateCtrl', [
       $scope.information.business = $rootScope.currentBusiness.id;
       $scope.information.owner = $rootScope.currentOwner.id;
 	    informationService.create($scope.information)
-      .$promise
-        .then(function (res) {
-          $state.go('tab.information-list');
-        }, function (err) {
+        .$promise
+          .then(function (res) {
+            $state.go('tab.information-list');
+          }, function (err) {
 
-        })
+          })
 	  }
 
     $scope.selectData = function(data) {

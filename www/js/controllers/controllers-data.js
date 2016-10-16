@@ -36,7 +36,11 @@ dataControllers.controller('dataListCtrl', [
             $ionicLoading.hide();
             $scope.$broadcast('scroll.refreshComplete');
           }, function (err) {
-
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
           })
     }
 

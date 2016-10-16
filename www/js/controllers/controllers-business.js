@@ -5,7 +5,6 @@ businessControllers.controller('businessListCtrl', [
   '$rootScope',
   '$stateParams',
   '$state',
-  '$location',
   '$ionicLoading',
   'businessService',
   function(
@@ -13,7 +12,6 @@ businessControllers.controller('businessListCtrl', [
     $rootScope,
     $stateParams,
     $state,
-    $location,
     $ionicLoading,
     businessService
   )
@@ -38,13 +36,24 @@ businessControllers.controller('businessListCtrl', [
 
     $scope.selectBusiness = function(bs) {
       $rootScope.currentBusiness = bs
-      window.localStorage.setItem('bs', JSON.stringify($rootScope.currentBusiness));
+      window.localStorage.setItem('business', JSON.stringify($rootScope.currentBusiness));
       $state.go('tab.knowledge-list');
     }
 
     $scope.refresh = function () {
-      $scope.business = businessService.list();
-      $scope.$broadcast('scroll.refreshComplete');
+      businessService.list()
+        .$promise
+          .then(function (res) {
+            $scope.business = res
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
     }
 
     $scope.$on('$stateChangeSuccess', function() {

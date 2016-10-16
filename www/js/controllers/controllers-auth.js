@@ -71,6 +71,7 @@ authControllers.controller('loginController', [
 
                 })
           }
+          $rootScope.headersJWT = {'Authorization': 'JWT ' + res.token}
           $rootScope.currentOwner = res.user.owner;
           $state.go('business-list');
         },

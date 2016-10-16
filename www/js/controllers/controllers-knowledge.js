@@ -29,8 +29,19 @@ knowledgeControllers.controller('knowledgeListCtrl', [
         })
 
     $scope.refresh = function () {
-      $scope.knowledges = knowledgeService.list();
-      $scope.$broadcast('scroll.refreshComplete');
+      knowledgeService.list()
+        .$promise
+          .then(function (res) {
+            $scope.knowledges = res
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
     }
 
     $scope.$on('$stateChangeSuccess', function() {

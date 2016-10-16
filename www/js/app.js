@@ -38,7 +38,7 @@ business.run(function($ionicPlatform, $rootScope) {
   // $rootScope.baseUrl = ':8080';
   $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
-  $rootScope.currentBusiness = JSON.parse(localStorage.getItem("bs")) || '';
+  $rootScope.currentBusiness = JSON.parse(localStorage.getItem("business")) || '';
   $rootScope.currentOwner = $rootScope.currentUser.owner || '';
   $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
 
