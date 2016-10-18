@@ -1,11 +1,11 @@
 <ion-view view-title="Employee List">
 
 	<ion-nav-buttons side="left">
-		<button ng-click="addEmployeeOpenModal()" class="button icon ion-android-person-add"></button>
+		<button ui-sref="tab.knowledge-list" class="button icon ion-arrow-left-c"></button>
 	</ion-nav-buttons>
 
 	<ion-nav-buttons side="right">
-		<button ui-sref="tab.knowledge-list" class="button icon ion-home"></button>
+		<button ng-click="addEmployeeOpenModal()" class="button icon ion-android-person-add"></button>
 	</ion-nav-buttons>
 
 	<ion-content padding="true">
@@ -17,7 +17,7 @@
         <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
        </button>
       </label>
-			<ion-item ui-sref="employee-detail({ id: bs.id })" ng-repeat="employee in employees | orderBy:'name' | filter:search.value | filter: currentBusiness.id" class="item item-button-right item-avatar-left">
+			<ion-item ui-sref="employee-profile({ id: employee.id })" ng-repeat="employee in employees | orderBy:'name' | filter:search.value | filter: currentBusiness.id" class="item item-button-right item-avatar-left">
 				<h2>{{employee.extra.employee_name}}</h2>
 				<div class="buttons">
 				  <ion-option-button ng-click="removeEmployee(employee)" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>

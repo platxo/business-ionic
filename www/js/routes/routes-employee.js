@@ -18,7 +18,7 @@ employeeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
     controller: 'employeeCtrl'
   })
   .state('employee-profile', {
-    url: '/employee-profile',
+    url: '/employee-profile/:id',
     templateUrl: 'templates/employee/employee-profile.html',
     controller: 'employeeProfileCtrl'
   })

@@ -1,6 +1,7 @@
 var business = angular.module('business', [
   'ionic',
   'ngCordova',
+  'firebase',
   'authControllers',
   'authServices',
   'authRoutes',
@@ -36,11 +37,15 @@ business.run(function($ionicPlatform, $rootScope) {
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
   // $rootScope.version = 'http://localhost';
   // $rootScope.baseUrl = ':8080';
-  $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+  if (localStorage.token) {
+    $rootScope.token = JSON.parse(localStorage.getItem("token"));
+    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
+  }
+  //$rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("business")) || '';
   $rootScope.currentOwner = $rootScope.currentUser.owner || '';
-  $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
+  //$rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token};
 
 
   $ionicPlatform.ready(function() {
@@ -60,6 +65,17 @@ business.run(function($ionicPlatform, $rootScope) {
     }
   });
 })
+
+// business.config(function() {
+//   var config = {
+//     apiKey: "AIzaSyDyxI50--Utf2itxIzAq7IzQS26R3VMNxY",
+//     authDomain: "platxo-bi.firebaseapp.com",
+//     databaseURL: "https://platxo-bi.firebaseio.com",
+//     storageBucket: "platxo-bi.appspot.com",
+//     messagingSenderId: "126142196573"
+//   };
+//   firebase.initializeApp(config);
+// });
 
 // business.config(['$httpProvider', function($httpProvider) {
 //     httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';

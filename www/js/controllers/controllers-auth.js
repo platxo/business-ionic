@@ -12,6 +12,7 @@ authControllers.controller('signupController', [
     loginService
   )
   {
+    if (localStorage.token) $state.go('tab.business-list');
     $scope.user = {}
 
     $scope.signup = function () {
@@ -42,23 +43,27 @@ authControllers.controller('loginController', [
   '$state',
   '$rootScope',
   'loginService',
-  'signupService',
   function(
     $scope,
     $state,
     $rootScope,
-    loginService,
-    signupService
+    loginService
   )
   {
+    if (localStorage.token) $state.go('tab.knowledge-list');
     $scope.user = {}
+    // var auth = firebase.auth();
+    // var providerGoogle = new firebase.auth.GoogleAuthProvider();
+    // var providerFacebook = new firebase.auth.FacebookAuthProvider();
+    // var providerEmail = new firebase.auth.EmailAuthProvider();
 
     $scope.login = function() {
     loginService.login($scope.user)
       .$promise
         .then( function (res) {
           $scope.user = {}
-          window.localStorage.setItem('token', JSON.stringify(res.token));
+          $rootScope.token = res.token // add token in login
+          window.localStorage.setItem('token', JSON.stringify($rootScope.token));
           window.localStorage.setItem('user', JSON.stringify(res.user));
           if (!res.user.is_owner) {
             res.user.is_owner = true;
@@ -70,9 +75,10 @@ authControllers.controller('loginController', [
                 }, function (err) {
 
                 })
+          } else {
+            $rootScope.currentOwner = res.user.owner;
           }
-          $rootScope.headersJWT = {'Authorization': 'JWT ' + res.token}
-          $rootScope.currentOwner = res.user.owner;
+          $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
           $state.go('business-list');
         },
         function (err) {
@@ -80,6 +86,43 @@ authControllers.controller('loginController', [
           $state.go('login');
         })
     }
+
+    // $scope.loginEmail = function() {
+    //   auth.signInWithPopup(providerEmail)
+    //     .then( function (result) {
+    //       console.log(result)
+    //       $state.go('business-list');
+    //       var uid = result.user.uid;
+    //     })
+    //     .catch( function (error) {
+    //
+    //     });
+    // }
+    //
+    // $scope.loginGoogle = function() {
+    //   auth.signInWithPopup(providerGoogle)
+    //     .then( function (result) {
+    //       console.log(result)
+    //       $state.go('business-list');
+    //       var uid = result.user.uid;
+    //     })
+    //     .catch( function (error) {
+    //
+    //     });
+    // }
+    //
+    // $scope.loginFacebook = function() {
+    //   auth.signInWithPopup(providerFacebook)
+    //     .then( function (result) {
+    //       console.log(result)
+    //       $state.go('business-list');
+    //       var uid = result.user.uid;
+    //     })
+    //     .catch( function (error) {
+    //
+    //     });
+    // }
+
 	}
 ]);
 
@@ -97,6 +140,7 @@ authControllers.controller('forgotPasswordController', [
     resetPasswordService
   )
   {
+    if (localStorage.token) $state.go('tab.knowledge-list');
     $scope.step1 = true
 
     $scope.sendEmail = function (data) {
@@ -158,10 +202,12 @@ authControllers.controller('GoogleCtrl', [
   '$scope',
   '$stateParams',
   '$state',
+  'firebaseService',
   function(
     $scope,
     $stateParams,
-    $state
+    $state,
+    firebaseService
   )
   {
 

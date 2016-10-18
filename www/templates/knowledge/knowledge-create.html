@@ -5,16 +5,16 @@
 				<span class="input-label">Name</span>
 				<input ng-model="knowledge.name" type="text" placeholder="" value="">
 			</label>
-			<label class="item item-input item-select" ng-click="informationOpenModal()">
-        <span class="input-label">Information</span>
-          <input type="text" value="{{Knowledge.information}}">
-      </label>
 			<label class="item item-input item-select">
 	      <span class="input-label">Tag</span>
 	      <select ng-model="knowledge.tag">
 		    	<option ng-repeat="(key, value) in tags" value="{{key}}">{{value}}</option>
 				</select>
 			</label>
+			<label class="item item-input item-select" ng-click="informationOpenModal()">
+        <span class="input-label">Information</span>
+          <input type="text" value="">
+      </label>
 			<button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
 			<button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>

@@ -1,20 +1,19 @@
 <ion-view view-title="Profile">
 
 
-	<ion-nav-buttons side="left">
+	<ion-nav-buttons side="right">
 		<button ui-sref="tab.knowledge-list" class="button icon ion-edit"></button>
 	</ion-nav-buttons>
 
-	<ion-nav-buttons side="right">
-		<button ui-sref="tab.knowledge-list" class="button icon ion-home"></button>
+	<ion-nav-buttons side="left">
+		<button ui-sref="tab.knowledge-list" class="button icon ion-arrow-left-c"></button>
 	</ion-nav-buttons>
 
 	<ion-content padding="true">
     <div class="list card">
       <div class="item item-divider">{{currentUser.username}}</div>
       <div class="item item-body">
-				<p>created: {{data.created | date:"MM/dd/yyyy 'at' h:mma"}}</p>
-				<p>updated: {{data.updated | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+
       </div>
     </div>
 	</ion-content>
